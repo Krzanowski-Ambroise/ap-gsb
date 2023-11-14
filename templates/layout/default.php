@@ -41,7 +41,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?php
             echo $this->Html->Link('Home', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'home']);
             echo $this->Html->Link('Users', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'index']);
-            echo $this->Html->Link('My sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'index']);
+            echo $this->Html->Link('Sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'index']);
             echo $this->Html->Link('Packages', ['plugin' => NULL, 'controller' => 'packages', 'action' => 'index']);
             echo $this->Html->Link('Out packages', ['plugin' => NULL, 'controller' => 'outpackages', 'action' => 'index']);
             echo $this->Html->Link('Logout' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
