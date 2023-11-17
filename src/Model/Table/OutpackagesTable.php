@@ -59,9 +59,8 @@ class OutpackagesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->date('date')
-            ->requirePresence('date', 'create')
-            ->notEmptyDate('date');
+            ->dateTime('date')
+            ->notEmptyDateTime('date');
 
         $validator
             ->numeric('price')
@@ -76,8 +75,7 @@ class OutpackagesTable extends Table
 
         $validator
             ->scalar('body')
-            ->requirePresence('body', 'create')
-            ->notEmptyString('body');
+            ->allowEmptyString('body');
 
         return $validator;
     }

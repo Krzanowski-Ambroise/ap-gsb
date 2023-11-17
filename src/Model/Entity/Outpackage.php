@@ -9,10 +9,10 @@ use Cake\ORM\Entity;
  * Outpackage Entity
  *
  * @property int $id
- * @property \Cake\I18n\FrozenDate $date
+ * @property \Cake\I18n\FrozenTime $date
  * @property float $price
  * @property string $title
- * @property string $body
+ * @property string|null $body
  *
  * @property \App\Model\Entity\Sheet[] $sheets
  */
