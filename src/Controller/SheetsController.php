@@ -113,4 +113,18 @@ class SheetsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function list()
+    {
+        $this->paginate = [
+            'contain' => ['Users', 'States'],
+        ];
+
+        $identity = $this->getRequest()->getAttribute('identity');
+        $identity = $identity ?? [];
+        $iduser = $identity["id"];
+        
+        $sheets = $this->paginate($this->Sheets->find('all')->where(['user_id' => $iduser]));
+
+        $this->set(compact('sheets'));
+    }
 }

@@ -15,6 +15,14 @@
  */
 
 $cakeDescription = 'CakePHP: the rapid development php framework';
+
+$identity = $this->getRequest()->getAttribute('identity');
+$identity = $identity ?? [];
+if ($identity) {
+$iduser = $identity["id"];
+$roleuser = $identity["is_superuser"];
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,14 +46,27 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-nav-title">
             <a href="<?= $this->Url->build('/') ?>"><span>Gsb</span>PHP</a>
         </div>
+        <div class="top-nav-links">
         <?php
             echo $this->Html->Link('Home', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'home']);
-            echo $this->Html->Link('Users', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'index']);
-            echo $this->Html->Link('Sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'index']);
+            echo $this->Html->Link('My sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
             echo $this->Html->Link('Packages', ['plugin' => NULL, 'controller' => 'packages', 'action' => 'index']);
             echo $this->Html->Link('Out packages', ['plugin' => NULL, 'controller' => 'outpackages', 'action' => 'index']);
-            echo $this->Html->Link('Logout' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
+            if(isset($roleuser) && !empty($roleuser)){
+                if($roleuser == true){
+                    echo $this->Html->Link('Admin panel', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'adminpanel']);
+                    echo $this->Html->Link('Profile', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'profile']);
+                    echo $this->Html->Link('Logout' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
+                }elseif($roleuser == false){
+                    echo $this->Html->Link('Profile', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'profile']);
+                    echo $this->Html->Link('Logout' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
+                }
+            }else{
+                echo $this->Html->Link('Login', ['plugin' => 'CakeDC/Users','Controller'=> 'Users','action'=> 'login'] );
+            }
+
         ?>
+        </div>
     </nav>
     <main class="main">
         <div class="container">

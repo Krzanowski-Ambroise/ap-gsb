@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Sheet $sheet
  * @var \Cake\Collection\CollectionInterface|string[] $users
  * @var \Cake\Collection\CollectionInterface|string[] $states
+ * @var \Cake\Collection\CollectionInterface|string[] $outpackages
+ * @var \Cake\Collection\CollectionInterface|string[] $packages
  */
 ?>
 <div class="row">
@@ -22,6 +24,8 @@
                     echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]);
                     echo $this->Form->control('state_id', ['options' => $states]);
                     echo $this->Form->control('sheetvalidated');
+                    echo $this->Form->control('outpackages._ids', ['options' => $outpackages]);
+                    echo $this->Form->control('packages._ids', ['options' => $packages]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
