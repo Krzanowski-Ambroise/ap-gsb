@@ -2,7 +2,12 @@
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Sheet> $sheets
+ * 
+ * 
+ * <th><?= $this->Paginator->sort('user_id') ?></th>
+ * $sheet->has('user') ? $this->Html->link($sheet->user->username, ['controller' => 'Users', 'action' => 'view', $sheet->user->id]) : ''
  */
+
 
 $identity = $this->getRequest()->getAttribute('identity');
 $identity = $identity ?? [];
@@ -14,11 +19,10 @@ $iduser = $identity["id"]
     <h3><?= __('Sheets') ?></h3>
     <div class="table-responsive">
         <table>
-            <?= $iduser ?>
+            <?= $this->users->first_name ?>
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('user_id') ?></th>
                     <th><?= $this->Paginator->sort('state_id') ?></th>
                     <th><?= $this->Paginator->sort('sheetvalidated') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
@@ -30,7 +34,6 @@ $iduser = $identity["id"]
                 <?php foreach ($sheets as $sheet): ?>
                     <tr>
                         <td><?= $this->Number->format($sheet->id) ?></td>
-                        <td><?= $sheet->has('user') ? $this->Html->link($sheet->user->username, ['controller' => 'Users', 'action' => 'view', $sheet->user->id]) : '' ?></td>
                         <td><?= $sheet->has('state') ? $this->Html->link($sheet->state->state, ['controller' => 'States', 'action' => 'view', $sheet->state->id]) : '' ?></td>
                         <td><?= h($sheet->sheetvalidated) ?></td>
                         <td><?= h($sheet->created) ?></td>
