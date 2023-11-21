@@ -7,6 +7,7 @@ php composer.phar create-project --prefer-dist cakephp/app
 2. Configure your Database [Configuration](#Configuration).
 3. Install and configure [CakeDC/Users](https://github.com/CakeDC/users/blob/11.next-cake4/Docs/Documentation/Installation.md).
 4. Import Database.
+5. Continue your project and send me news.
 
 If Composer is installed globally, run
 
