@@ -15,11 +15,17 @@ $iduser = $identity["id"]
 
 ?>
 <div class="sheets index content">
-    <?= $this->Html->link(__('New Sheet'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Sheets') ?></h3>
+    <?= $this->Form->create($sheet) ?>
+    <?php 
+        echo $this->Form->control('sheetvalidated', ['type' => 'hidden', 'default' => 0]);
+        echo $this->Form->control('state_id', ['type' => 'hidden', 'default' => 1]);
+        echo $this->Form->control('user_id', ['type' => 'hidden', 'default' => $identity["id"]]);
+    ?>
+    <?= $this->Form->button(__('Create sheet'), ['class' => 'button float-right']) ?>
+    <?= $this->Form->end() ?>
     <div class="table-responsive">
         <table>
-            <?= $this->users->first_name ?>
+            Bonjour <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, vous pouvez remplir vos fiches ci-dessous :
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>

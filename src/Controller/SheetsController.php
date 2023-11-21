@@ -65,6 +65,24 @@ class SheetsController extends AppController
         $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
         $this->set(compact('sheet', 'users', 'states', 'outpackages', 'packages'));
     }
+    public function clientadd()
+    {
+        $sheet = $this->Sheets->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
+            if ($this->Sheets->save($sheet)) {
+                $this->Flash->success(__('The sheet has been saved.'));
+
+                return $this->redirect(['action' => 'list']);
+            }
+            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
+        }
+        $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
+        $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
+        $outpackages = $this->Sheets->Outpackages->find('list', ['limit' => 200])->all();
+        $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
+        $this->set(compact('sheet', 'users', 'states', 'outpackages', 'packages'));
+    }
 
     /**
      * Edit method
@@ -125,6 +143,21 @@ class SheetsController extends AppController
         
         $sheets = $this->paginate($this->Sheets->find('all')->where(['user_id' => $iduser]));
 
-        $this->set(compact('sheets'));
+        $sheet = $this->Sheets->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
+            if ($this->Sheets->save($sheet)) {
+                $this->Flash->success(__('The sheet has been saved.'));
+
+                return $this->redirect(['action' => 'list']);
+            }
+            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
+        }
+        $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
+        $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
+        $outpackages = $this->Sheets->Outpackages->find('list', ['limit' => 200])->all();
+        $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
+
+        $this->set(compact('sheets','sheet', 'users', 'states', 'outpackages', 'packages'));
     }
 }
