@@ -116,13 +116,6 @@ ALTER TABLE `outpackages`
 ALTER TABLE `packages`
   ADD PRIMARY KEY (`id`);
 
---
--- Index pour la table `sheets`
---
-ALTER TABLE `sheets`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `state_id` (`state_id`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Index pour la table `sheets_outpackages`
@@ -198,3 +191,10 @@ ALTER TABLE `sheets_packages`
   ADD CONSTRAINT `sheets_packages_ibfk_1` FOREIGN KEY (`package_id`) REFERENCES `packages` (`id`),
   ADD CONSTRAINT `sheets_packages_ibfk_2` FOREIGN KEY (`sheet_id`) REFERENCES `sheets` (`id`);
 
+--
+-- Index pour la table `sheets`
+--
+ALTER TABLE `sheets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `state_id` (`state_id`),
+  ADD KEY `user_id` (`user_id`);
