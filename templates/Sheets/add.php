@@ -19,7 +19,7 @@
             <fieldset>
                 <legend><?= __('Add Sheet') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]);
+                    echo $this->Form->control('user_id', ['options' => $users, 'empty' => false]);
                     echo $this->Form->control('state_id', ['options' => $states]);
                     echo $this->Form->control('sheetvalidated');
                 ?>

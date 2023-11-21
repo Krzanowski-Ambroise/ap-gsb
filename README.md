@@ -1,6 +1,6 @@
 ## Installation
 
-1. Install cakephp project :
+1. Install cakephp project and extract in webroot folder :
 ```bash
 composer create-project --prefer-dist cakephp/app:~4.0 app
 ```
