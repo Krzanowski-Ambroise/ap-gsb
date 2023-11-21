@@ -15,6 +15,7 @@ $iduser = $identity["id"]
 
 ?>
 <div class="sheets index content">
+<div class="float-left" style="padding: 10px 20px;">Bonjour <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, vous pouvez remplir vos fiches ci-dessous : </div>
     <?= $this->Form->create($sheet) ?>
     <?php 
         echo $this->Form->control('sheetvalidated', ['type' => 'hidden', 'default' => 0]);
@@ -25,7 +26,6 @@ $iduser = $identity["id"]
     <?= $this->Form->end() ?>
     <div class="table-responsive">
         <table>
-            Bonjour <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, vous pouvez remplir vos fiches ci-dessous :
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
