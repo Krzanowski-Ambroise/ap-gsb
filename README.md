@@ -1,6 +1,6 @@
 ## Installation
 
-1. Install cakephp project in your :
+1. Install cakephp project :
 ```bash
 composer create-project --prefer-dist cakephp/app:~4.0 app
 ```
