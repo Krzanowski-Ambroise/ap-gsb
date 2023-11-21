@@ -2,7 +2,7 @@
 
 1. Install cakephp project in your :
 ```bash
-php composer.phar create-project --prefer-dist cakephp/app
+composer create-project --prefer-dist cakephp/app:~4.0 app
 ```
 2. Configure your Database [Configuration](#Configuration).
 3. Install and configure [CakeDC/Users](https://github.com/CakeDC/users/blob/11.next-cake4/Docs/Documentation/Installation.md).
