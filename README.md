@@ -1,15 +1,15 @@
 ## Installation
 
-1. Run ...
+1. Install cakephp project in your webserver .:
 ```bash
 php composer.phar create-project --prefer-dist cakephp/app
 ```
 2. Configure your Database.
-3. Install and configure CakeDC/Users...
+3. Install and configure CakeDC/Users .:
 ```bash
 https://github.com/CakeDC/users/blob/11.next-cake4/Docs/Documentation/Installation.md
 ```
-4. Import Database.
+4. Import Database and send me 10€.
 
 If Composer is installed globally, run
 
