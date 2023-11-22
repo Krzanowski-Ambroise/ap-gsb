@@ -18,11 +18,13 @@
             <fieldset>
                 <legend><?= __('Add Outpackage') ?></legend>
                 <?php
-                    echo $this->Form->control('date');
+                    
                     echo $this->Form->control('price');
                     echo $this->Form->control('title');
                     echo $this->Form->control('body');
-                    echo $this->Form->control('sheets._ids', ['default' => $sheet->id]);
+                    
+                    // Champ caché pour stocker l'ID de la fiche
+                    echo $this->Form->control('sheets._id', ['value' => $sheet->id]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

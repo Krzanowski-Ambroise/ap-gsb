@@ -60,22 +60,6 @@ class OutpackagesController extends AppController
         $this->set(compact('outpackage', 'sheets'));
     }
 
-    public function clientadd()
-    {
-        $outpackage = $this->Outpackages->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $outpackage = $this->Outpackages->patchEntity($outpackage, $this->request->getData());
-            if ($this->Outpackages->save($outpackage)) {
-                $this->Flash->success(__('The outpackage has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The outpackage could not be saved. Please, try again.'));
-        }
-        $sheets = $this->Outpackages->Sheets->find('list', ['limit' => 200])->all();
-        $this->set(compact('outpackage', 'sheets'));
-    }
-
     /**
      * Edit method
      *

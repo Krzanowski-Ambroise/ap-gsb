@@ -47,7 +47,8 @@ $iduser = $identity["id"]
             </table>
             
             <div class="related">
-                <h4><?= __('Related Packages') ?></h4>
+                <h4 class="float-left"><?= __('Related Packages') ?></h4>
+                <?= $this->Html->link('New package', ['action' => 'addpackage', $sheet->id], ['class' => 'button float-right']) ?>
                 <?php if (!empty($sheet->packages)) : ?>
                 <div class="table-responsive">
                     <table>
@@ -75,7 +76,8 @@ $iduser = $identity["id"]
                 <?php endif; ?>
             </div>
             <div class="related">
-                <h4><?= __('Related Outpackages') ?></h4>
+                <h4 class="float-left"><?= __('Related Outpackages') ?></h4>
+                <?= $this->Html->link('New outpackage', ['action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
                 <?php if (!empty($sheet->outpackages)) : ?>
                 <div class="table-responsive">
                     <table>
