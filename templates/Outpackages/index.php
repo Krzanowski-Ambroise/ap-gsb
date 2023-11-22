@@ -15,6 +15,7 @@
                     <th><?= $this->Paginator->sort('date') ?></th>
                     <th><?= $this->Paginator->sort('price') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
+                    <th><?= $this->Paginator->sort('Body') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <td><?= h($outpackage->date) ?></td>
                     <td><?= $this->Number->format($outpackage->price) ?></td>
                     <td><?= h($outpackage->title) ?></td>
+                    <td style="max-width: 500px; text-align: justify;"><?= h($outpackage->body) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $outpackage->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $outpackage->id]) ?>

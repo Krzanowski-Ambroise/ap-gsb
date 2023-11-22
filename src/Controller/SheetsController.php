@@ -42,6 +42,15 @@ class SheetsController extends AppController
         $this->set(compact('sheet'));
     }
 
+    public function clientview($id = null)
+    {
+        $sheet = $this->Sheets->get($id, [
+            'contain' => ['Users', 'States', 'Outpackages', 'Packages'],
+        ]);
+
+        $this->set(compact('sheet'));
+    }
+
     /**
      * Add method
      *

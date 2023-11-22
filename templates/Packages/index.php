@@ -14,6 +14,7 @@
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('price') ?></th>
                     <th><?= $this->Paginator->sort('title') ?></th>
+                    <th><?= $this->Paginator->sort('Body') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <td><?= $this->Number->format($package->id) ?></td>
                     <td><?= $this->Number->format($package->price) ?></td>
                     <td><?= h($package->title) ?></td>
+                    <td style="max-width: 500px; text-align: justify;"><?= h($package->body) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $package->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $package->id]) ?>

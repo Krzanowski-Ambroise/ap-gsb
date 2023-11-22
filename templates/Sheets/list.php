@@ -41,14 +41,18 @@ $iduser = $identity["id"]
                     <tr>
                         <td><?= $this->Number->format($sheet->id) ?></td>
                         <td><?= $sheet->has('state') ? $this->Html->link($sheet->state->state, ['controller' => 'States', 'action' => 'view', $sheet->state->id]) : '' ?></td>
-                        <td><?= h($sheet->sheetvalidated) ?></td>
+                        <td><?php if($sheet->sheetvalidated == 1){echo "Validate";}else{echo "Unvalidated";} ?></td>
                         <td><?= h($sheet->created) ?></td>
                         <td><?= h($sheet->modified) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $sheet->id]) ?>
-                            <?php if($sheet->state->id === 1): ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $sheet->id]) ?>
-                            <?php endif; ?>
+                            <?php if($sheet->state->id > 1){echo $this->Html->link(__('View'), ['action' => 'clientview', $sheet->id]);}elseif($sheet->state->id == 1){echo $this->Html->link(__('View - Edit'), ['action' => 'clientview', $sheet->id]);}else{echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}  ?>
+                            <?php 
+                            /**
+                             * if($sheet->state->id === 1):
+                             * $this->Html->link(__('Edit'), ['action' => 'edit', $sheet->id])
+                             * endif; 
+                            **/
+                            ?>
                             <!-- $this->Form->postLink(__('Delete'), ['action' => 'delete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id)]) -->
                         </td>
                     </tr>
