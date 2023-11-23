@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Sheet> $sheets
  */
+debug($this->request->getData());
 ?>
 <div class="sheets index content">
     <?= $this->Html->link(__('New Sheet'), ['action' => 'add'], ['class' => 'button float-right']) ?>
