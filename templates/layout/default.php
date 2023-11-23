@@ -36,6 +36,7 @@ $roleuser = $identity["is_superuser"];
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake']) ?>
+    <?= $this->Html->script(['app.js']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -50,8 +51,8 @@ $roleuser = $identity["is_superuser"];
         <?php
             echo $this->Html->Link('Home', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'home']);
             echo $this->Html->Link('My sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
-            echo $this->Html->Link('Packages', ['plugin' => NULL, 'controller' => 'packages', 'action' => 'index']);
-            echo $this->Html->Link('Out packages', ['plugin' => NULL, 'controller' => 'outpackages', 'action' => 'index']);
+            //echo $this->Html->Link('Packages', ['plugin' => NULL, 'controller' => 'packages', 'action' => 'index']);
+            //echo $this->Html->Link('Out packages', ['plugin' => NULL, 'controller' => 'outpackages', 'action' => 'index']);
             if(isset($roleuser) && !empty($roleuser)){
                 if($roleuser == true){
                     echo $this->Html->Link('Admin panel', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'adminpanel']);

@@ -201,6 +201,11 @@ th {
     justify-content: center;
 }
 
+.hidden-input {
+    display: none;
+}
+
+
 @media screen and (max-width: 640px) {
     .top-nav {
         margin: 0 auto;

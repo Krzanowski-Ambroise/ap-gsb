@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+
 /**
  * Sheets Controller
  *
@@ -47,9 +48,84 @@ class SheetsController extends AppController
         $sheet = $this->Sheets->get($id, [
             'contain' => ['Users', 'States', 'Outpackages', 'Packages'],
         ]);
-
+    
+        if ($this->request->is('post')) {
+            $postData = $this->request->getData();
+    
+            if (isset($postData['packages'])) {
+                foreach ($postData['packages'] as $packageId => $packageData) {
+                    // Vérifie que la quantité est définie
+                    if (isset($packageData['quantity'])) {
+                        $quantity = $packageData['quantity'];
+    
+                        // Met à jour la table d'association SheetsPackages
+                        $this->Sheets->Packages->SheetsPackages->updateAll(
+                            ['quantity' => $quantity],
+                            ['sheet_id' => $id, 'package_id' => $packageId]
+                        );
+                    }
+                }
+    
+                return $this->redirect(['action' => 'clientview', $id]);
+            }
+        }
+    
         $this->set(compact('sheet'));
     }
+    
+
+    
+
+
+
+    public function updateQuantity($id = null)
+    {
+        // Vérifie si la requête est une requête POST
+        if ($this->request->is(['post', 'put'])) {
+            // Récupère les données du formulaire
+            $data = $this->request->getData();
+
+            // Vérifie si les données nécessaires sont présentes
+            if (isset($data['package_id'], $data['action'])) {
+                // Récupère l'id du package et l'action depuis les données du formulaire
+                $packageId = $data['package_id'];
+                $action = $data['action'];
+
+                // Récupère la feuille associée à l'id
+                $sheet = $this->Sheets->get($id, [
+                    'contain' => ['Packages'], // Assure-toi que Packages est correctement inclus dans le 'contain'
+                ]);
+
+                // Recherche le package dans la liste des packages de la feuille
+                foreach ($sheet->packages as $package) {
+                    if ($package->id == $packageId) {
+                        // Met à jour la quantité en fonction de l'action
+                        if ($action === 'increment') {
+                            $package->_joinData->quantity++;
+                        } elseif ($action === 'decrement' && $package->_joinData->quantity > 0) {
+                            $package->_joinData->quantity--;
+                        }
+
+                        // Débogage : Vérifie que la quantité a été mise à jour correctement
+                        debug($package->_joinData->quantity);
+
+                        // Sauvegarde la feuille mise à jour
+                        if ($this->Sheets->save($sheet)) {
+                            // Débogage : Vérifie que la feuille a été sauvegardée correctement
+                            debug($sheet);
+                            
+                            // Redirige vers l'action clientview avec l'id de la feuille
+                            return $this->redirect(['action' => 'clientview', $id]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Redirige en cas de problème
+        return $this->redirect(['action' => 'clientview', $id]);
+    }
+
 
     /**
      * Add method
@@ -74,30 +150,7 @@ class SheetsController extends AppController
         $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
         $this->set(compact('sheet', 'users', 'states', 'outpackages', 'packages'));
     }
- 
-    public function addoutpackage($id = null)
-    {
-        
-    }
     
-    public function clientadd()
-    {
-        $sheet = $this->Sheets->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
-            if ($this->Sheets->save($sheet)) {
-                $this->Flash->success(__('The sheet has been saved.'));
-
-                return $this->redirect(['action' => 'list']);
-            }
-            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
-        }
-        $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
-        $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
-        $outpackages = $this->Sheets->Outpackages->find('list', ['limit' => 200])->all();
-        $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
-        $this->set(compact('sheet', 'users', 'states', 'outpackages', 'packages'));
-    }
 
     /**
      * Edit method
@@ -147,32 +200,45 @@ class SheetsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     public function list()
-    {
-        $this->paginate = [
-            'contain' => ['Users', 'States'],
-        ];
+{
+    $this->paginate = [
+        'contain' => ['Users', 'States'],
+    ];
 
-        $identity = $this->getRequest()->getAttribute('identity');
-        $identity = $identity ?? [];
-        $iduser = $identity["id"];
-        
-        $sheets = $this->paginate($this->Sheets->find('all')->where(['user_id' => $iduser]));
+    $identity = $this->getRequest()->getAttribute('identity');
+    $identity = $identity ?? [];
+    $iduser = $identity["id"];
+    
+    $sheets = $this->paginate($this->Sheets->find('all')->where(['user_id' => $iduser]));
 
-        $sheet = $this->Sheets->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
-            if ($this->Sheets->save($sheet)) {
-                $this->Flash->success(__('The sheet has been saved.'));
+    $sheet = $this->Sheets->newEmptyEntity();
 
-                return $this->redirect(['action' => 'list']);
+    if ($this->request->is('post')) {
+        $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
+        if ($this->Sheets->save($sheet)) {
+            $this->Flash->success(__('The sheet has been saved.'));
+
+            // Initialise la table sheets_packages avec une quantité de 0 pour chaque package
+            $packages = $this->Sheets->Packages->find()->toArray();
+
+            foreach ($packages as $package) {
+                $sheetPackage = $this->Sheets->SheetsPackages->newEntity([
+                    'sheet_id' => $sheet->id,
+                    'package_id' => $package->id,
+                    'quantity' => 0,
+                ]);
+
+                $this->Sheets->SheetsPackages->save($sheetPackage);
             }
-            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
-        }
-        $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
-        $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
-        $outpackages = $this->Sheets->Outpackages->find('list', ['limit' => 200])->all();
-        $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
 
-        $this->set(compact('sheets','sheet', 'users', 'states', 'outpackages', 'packages'));
+            return $this->redirect(['action' => 'list']);
+        }
+
+        $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
     }
+
+    $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
+    $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
+    $this->set(compact('sheets','sheet', 'users', 'states'));
+}
 }

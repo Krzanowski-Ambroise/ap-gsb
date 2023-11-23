@@ -1,21 +1,15 @@
-// Modifier le fichier add.ctp dans le dossier templates/Outpackages
 <?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Outpackage $outpackage
  * @var \Cake\Collection\CollectionInterface|string[] $sheets
  */
-debug($this->request->getData());
 
 // Récupère les paramètres de l'URL
 $params = $this->request->getParam('pass');
 
 // $params est maintenant un tableau, et $params[0] contient la valeur "8" dans cet exemple
 $sheet_id = $params[0];
-
-// Utilise $sheet_id comme nécessaire dans ta vue.
-echo $sheet_id;
-debug($this->request->getData('sheets._ids'))
 ?>
 <div class="row">
     <aside class="column">
@@ -34,12 +28,8 @@ debug($this->request->getData('sheets._ids'))
                     echo $this->Form->control('title');
                     echo $this->Form->control('body');
                     
-                    // Ajouter le champ pour sélectionner une fiche
+                    echo $this->Form->control('sheets._ids', ['value' => $sheet_id, 'style' => 'display: none','label' => false]);
                     
-                    echo $this->Form->control('sheets._ids', [
-                        'type' => 'hidden', // Définit le type du champ comme caché
-                        'default' => [$sheet_id], // Utilise $sheet_id comme valeur par défaut
-                    ]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
