@@ -4,6 +4,11 @@
  * @var \App\Model\Entity\Outpackage $outpackage
  * @var \Cake\Collection\CollectionInterface|string[] $sheets
  */
+
+debug($this->request->getData());
+debug($this->request->getData('sheet_id'));
+
+
 ?>
 <div class="row">
     <aside class="column">
@@ -24,7 +29,7 @@
                     echo $this->Form->control('body');
                     
                     // Champ caché pour stocker l'ID de la fiche
-                    echo $this->Form->control('sheets._id', ['value' => $sheet->id]);
+                    echo $this->Form->hidden('sheet_id', ['value' => $sheet->id]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

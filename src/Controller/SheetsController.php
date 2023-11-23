@@ -74,21 +74,12 @@ class SheetsController extends AppController
         $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
         $this->set(compact('sheet', 'users', 'states', 'outpackages', 'packages'));
     }
-    public function addoutpackage()
+ 
+    public function addoutpackage($id = null)
     {
-        $outpackage = $this->Sheets->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $outpackage = $this->Sheets->patchEntity($outpackage, $this->request->getData());
-            if ($this->Sheets->save($outpackage)) {
-                $this->Flash->success(__('The outpackage has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The outpackage could not be saved. Please, try again.'));
-        }
-        $sheets = $this->Sheets->find('list', ['limit' => 200])->all();
-        $this->set(compact('outpackage', 'sheets'));
+        
     }
+    
     public function clientadd()
     {
         $sheet = $this->Sheets->newEmptyEntity();

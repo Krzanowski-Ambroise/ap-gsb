@@ -52,7 +52,7 @@ class OutpackagesController extends AppController
             if ($this->Outpackages->save($outpackage)) {
                 $this->Flash->success(__('The outpackage has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The outpackage could not be saved. Please, try again.'));
         }
