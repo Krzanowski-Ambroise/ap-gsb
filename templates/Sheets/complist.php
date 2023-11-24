@@ -15,15 +15,7 @@ $iduser = $identity["id"]
 
 ?>
 <div class="sheets index content">
-<div class="float-left" style="padding: 10px 20px;">Bonjour <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, vous pouvez remplir vos fiches ci-dessous : </div>
-    <?= $this->Form->create($sheet) ?>
-    <?php 
-        echo $this->Form->control('sheetvalidated', ['type' => 'hidden', 'default' => 0]);
-        echo $this->Form->control('state_id', ['type' => 'hidden', 'default' => 1]);
-        echo $this->Form->control('user_id', ['type' => 'hidden', 'default' => $identity["id"]]);
-    ?>
-    <?= $this->Form->button(__('Create sheet'), ['class' => 'button float-right']) ?>
-    <?= $this->Form->end() ?>
+<div class="float-left" style="padding: 10px 20px;">Bonjour <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, vous pouvez maintenant vérifier les fiches clients : </div>
     <div class="table-responsive">
         <table>
             <thead>
@@ -45,7 +37,7 @@ $iduser = $identity["id"]
                         <td><?= h($sheet->created) ?></td>
                         <td><?= h($sheet->modified) ?></td>
                         <td class="actions">
-                            <?php if($sheet->state->id > 1){echo $this->Html->link(__('View'), ['action' => 'clientview', $sheet->id]);}elseif($sheet->state->id == 1){echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}else{echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}  ?>
+                            <?php if($sheet->state->id > 1){echo $this->Html->link(__('View'), ['action' => 'compview', $sheet->id]);}elseif($sheet->state->id == 1){echo $this->Html->link(__('View'), ['action' => 'clientview', $sheet->id]);}else{echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}  ?>
                             
                             <!-- $this->Form->postLink(__('Delete'), ['action' => 'delete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id)]) -->
                         </td>

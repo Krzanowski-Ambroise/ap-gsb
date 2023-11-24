@@ -43,6 +43,14 @@ class PagesController extends AppController
      *   be found and not in debug mode.
      * @throws \Cake\View\Exception\MissingTemplateException In debug mode.
      */
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        // Sauter l'autorisation pour toutes les actions de ce contrôleur
+        $this->Authorization->skipAuthorization();
+    }
+     
     public function display(string ...$path): ?Response
     {
         if (!$path) {

@@ -112,6 +112,7 @@ return [
             'plugin' => 'CakeDC/Users',
             'controller' => 'Users',
             'action' => ['profile', 'logout', 'linkSocial', 'callbackLinkSocial'],
+            
         ],
         [
             'role' => '*',
@@ -131,7 +132,9 @@ return [
         [
             'role' => '*',
             'controller' => 'Pages',
-            'action' => 'display',
+            'action' => ['display', 'home'],
+            'allowed' => true,
+            
         ],
         [
             'role' => '*',
