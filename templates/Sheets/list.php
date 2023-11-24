@@ -40,12 +40,27 @@ $iduser = $identity["id"]
                 <?php foreach ($sheets as $sheet): ?>
                     <tr>
                         <td><?= $this->Number->format($sheet->id) ?></td>
-                        <td><?= $sheet->has('state') ? $this->Html->link($sheet->state->state, ['controller' => 'States', 'action' => 'view', $sheet->state->id]) : '' ?></td>
-                        <td><?php if($sheet->sheetvalidated == 1){echo "Validate";}else{echo "Unvalidated";} ?></td>
+                        <td><?php
+                        if($sheet->state->id == 1){
+                            echo "<span style='color: #3498db'>".$sheet->state->state."</span>";
+                        }elseif($sheet->state->id == 2){
+                            echo "<span style='color: #e74c3c'>".$sheet->state->state."</span>";
+                        }elseif($sheet->state->id == 3){
+                            echo "<span style='color: #2ecc71'>".$sheet->state->state."</span>";
+                        }elseif($sheet->state->id == 4){
+                            echo "<span style='color: #f39c12'>".$sheet->state->state."</span>";
+                        }elseif($sheet->state->id == 5){
+                            echo "<span style='color: #27ae60'>".$sheet->state->state."</span>";
+                        }else{
+                            echo "N/A";
+                        }
+        
+                         ?></td>
+                        <td><?php if($sheet->sheetvalidated == 1){echo "<span style='color: green'>Validate</span>";}else{echo "<span style='color: red'>Unvalidated</span>";} ?></td>
                         <td><?= h($sheet->created) ?></td>
                         <td><?= h($sheet->modified) ?></td>
                         <td class="actions">
-                            <?php if($sheet->state->id > 1){echo $this->Html->link(__('View'), ['action' => 'clientview', $sheet->id]);}elseif($sheet->state->id == 1){echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}else{echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}  ?>
+                            <?php if($sheet->state->id != 1 || $sheet->sheetvalidated == 1){echo $this->Html->link(__('View'), ['action' => 'clientview', $sheet->id]);}elseif($sheet->state->id == 1){echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}else{echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}  ?>
                             
                             <!-- $this->Form->postLink(__('Delete'), ['action' => 'delete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id)]) -->
                         </td>

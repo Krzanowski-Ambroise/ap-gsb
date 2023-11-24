@@ -75,6 +75,7 @@ $total_outpackage = 0;
                                 <th><?= __('Quantity') ?></th>
                                 <th><?= __('Price') ?></th>
                                 <th><?= __('Title') ?></th>
+                                <th><?= __('Body') ?></th>
                             </tr>
                             <?php foreach ($sheet->packages as $package) : ?>
                                 <tr>
@@ -84,14 +85,13 @@ $total_outpackage = 0;
                                     </td>
                                     <td><?= h($package->price) ?> €</td>
                                     <td><?= h($package->title) ?></td>
+                                    <td title="<?= h($package->body) ?>">
+                                        <?= h(substr($package->body, 0, 100)) ?> ...
+                                    </td>
                                     
                                 </tr>
                                 <?php $total_package = $total_package + ($package->_joinData->quantity * $package->price) ?>
                             <?php endforeach; ?>
-                            <td>
-                                <?= $this->Form->hidden('action', ['value' => '']) ?>
-                                <?= $this->Form->button('Save', ['type' => 'submit']) ?>
-                            </td>
                             <?= $this->Form->end() ?>
                         </table>
                     </div>
@@ -102,7 +102,6 @@ $total_outpackage = 0;
                 <?= $total_package." €" ?>
             <div class="related">
                 <h4 class="float-left"><?= __('Related Outpackages') ?></h4>
-                <?= $this->Html->link('New outpackage', ['controller' => 'Outpackages', 'action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
                 <?php if (!empty($sheet->outpackages)) : ?>
                 <div class="table-responsive">
                     <table>
@@ -119,7 +118,9 @@ $total_outpackage = 0;
                             <td><?= h($outpackages->date) ?></td>
                             <td><?= h($outpackages->price) ?> €</td>
                             <td><?= h($outpackages->title) ?></td>
-                            <td><?= h($outpackages->body) ?></td>
+                            <td title="<?= h($outpackages->body) ?>">
+                                <?= h(substr($outpackages->body, 0, 100)) ?> ...
+                            </td>
                             
                         </tr>
                         <?php $total_outpackage = $total_outpackage + $outpackages->price; ?>

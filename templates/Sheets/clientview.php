@@ -16,7 +16,9 @@ $total_outpackage = 0;
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(__('Delete Sheet'), ['action' => 'delete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id), 'class' => 'side-nav-item']) ?>
+            <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
+                <?= $this->Form->postLink(__('Delete Sheet'), ['action' => 'delete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id), 'class' => 'side-nav-item']) ?>
+            <?php endif; ?>
             <?= $this->Html->link(__('List Sheets'), ['action' => 'list'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
@@ -65,22 +67,25 @@ $total_outpackage = 0;
                                 <th><?= __('Quantity') ?></th>
                                 <th><?= __('Price') ?></th>
                                 <th><?= __('Title') ?></th>
+                                <th><?= __('Body') ?></th>
                             </tr>
                             <?php foreach ($sheet->packages as $package) : ?>
                                 <tr>
                                     <td><?= h($package->id) ?></td>
-                                    <?php if ($sheet->state->id == 1): ?>
-                                        <?php if (!$sheet->sheetvalidated): ?>
-                                            <td>
-                                                <?= $this->Form->hidden("packages.{$package->id}.id", ['value' => $package->_joinData->id]) ?>
-                                                <?= $this->Form->control("packages.{$package->id}.quantity", ['type' => 'text', 'label' => false, 'value' => isset($package->_joinData->quantity) ? $package->_joinData->quantity : 0]) ?>
-                                            </td>
-                                        <?php else: ?>
-                                            <td><?= $package->_joinData->quantity ?></td>
-                                        <?php endif; ?>
-                                    <?php endif; ?> 
+                                    <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
+                                        <td>
+                                            <?= $this->Form->hidden("packages.{$package->id}.id", ['value' => $package->_joinData->id]) ?>
+                                            <?= $this->Form->control("packages.{$package->id}.quantity", ['type' => 'text', 'label' => false, 'value' => isset($package->_joinData->quantity) ? $package->_joinData->quantity : 0]) ?>
+                                        </td>
+                                    <?php else: ?>
+                                        <td><?php echo $package->_joinData->quantity ?></td>
+                                    <?php endif; ?>
                                     <td><?= h($package->price) ?> €</td>
                                     <td><?= h($package->title) ?></td>
+                                    <!-- Limiter la taille du champ body à 100 caractères -->
+                                    <td title="<?= h($package->body) ?>">
+                                        <?= h(substr($package->body, 0, 100)) ?> ...
+                                    </td>
                                     <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
                                         <td style="display: none">
                                             <?= $this->Form->postLink(__('None')) ?>
@@ -91,23 +96,18 @@ $total_outpackage = 0;
                             <?php endforeach; ?>
                         </table>
                     </div>
-                    <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
-                        <td>
-                            <?= $this->Form->hidden('action', ['value' => '']) ?>
-                            <?= $this->Form->button('Save', ['type' => 'submit']) ?>
-                        </td> 
-                    <?php endif; ?>
+                    <div style="margin-top: 1rem;">
+                        <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
+                            <td>
+                                <?= $this->Form->hidden('action', ['value' => '']) ?>
+                                <?= $this->Form->button('Save', ['type' => 'submit']) ?>
+                            </td> 
+                        <?php endif; ?>
+                        <?= '<strong style="margin-left: 1rem">Total package : </strong>'.$total_package." €" ?>
+                    </div>
                 <?php endif; ?>
                 <?= $this->Form->end() ?>
-
                 
-                <?= '<strong>Total outpackage : </strong>' ?>
-                <?= $total_package." €" ?>
-                
-                
-
-
-
             </div>
             <div class="related">
                 <h4 class="float-left"><?= __('Related Outpackages') ?></h4>
@@ -137,11 +137,14 @@ $total_outpackage = 0;
                             <td><?= h($outpackages->date) ?></td>
                             <td><?= h($outpackages->price) ?> €</td>
                             <td><?= h($outpackages->title) ?></td>
-                            <td><?= h($outpackages->body) ?></td>
+                            <!-- Limiter la taille du champ body à 100 caractères -->
+                            <td title="<?= h($outpackages->body) ?>">
+                                <?= h(substr($outpackages->body, 0, 100)) ?> ...
+                            </td>
                             <?php if($sheet->state->id == 1): ?>
                                 <?php if($sheet->sheetvalidated == false): ?>
                                     <td class="actions">
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Outpackages', 'action' => 'delete', $outpackages->id], ['confirm' => __('Are you sure you want to delete # {0}?', $outpackages->id)]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Outpackages', 'action' => 'delete', $outpackages->id, $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $outpackages->id)]) ?>
                                     </td>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -151,10 +154,8 @@ $total_outpackage = 0;
                     </table>
                 </div>
                 <?php endif; ?>
-                <?= '<strong>Total outpackage : </strong>' ?>
-                <?= $total_outpackage." €" ?>
-                <?= '</br><strong>Total : </strong>' ?>
-                <?= $total = $total_outpackage + $total_package." €" ?>
+                <?= '<div style="margin-top: 1rem"><strong>Total outpackage : </strong>'.$total_outpackage." €</div>" ?>
+                <?= '</br><strong>Total : </strong>'.$total = $total_outpackage + $total_package." €" ?>
             </div>
             
         </div>

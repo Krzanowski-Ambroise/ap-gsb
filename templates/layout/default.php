@@ -21,6 +21,7 @@ $identity = $identity ?? [];
 if ($identity) {
 $iduser = $identity["id"];
 $roleuser = $identity["is_superuser"];
+$roleuser_name = $identity["role"];
 }
 
 ?>
@@ -50,8 +51,6 @@ $roleuser = $identity["is_superuser"];
         <div class="top-nav-links">
         <?php
             echo $this->Html->Link('Home', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'home']);
-            //echo $this->Html->Link('Packages', ['plugin' => NULL, 'controller' => 'packages', 'action' => 'index']);
-            //echo $this->Html->Link('Out packages', ['plugin' => NULL, 'controller' => 'outpackages', 'action' => 'index']);
             if(isset($roleuser) && !empty($roleuser)){
                 if($roleuser == true){
                     echo $this->Html->Link('Client sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
@@ -60,14 +59,17 @@ $roleuser = $identity["is_superuser"];
                     echo $this->Html->Link('Profile', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'profile']);
                     echo $this->Html->Link('Logout' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
                 }elseif($roleuser == false){
-                    echo $this->Html->Link('My sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
+                    if($roleuser_name == "comptable"){
+                        echo $this->Html->Link('Comptable sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'complist']);
+                    }else{
+                        echo $this->Html->Link('My sheets', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
+                    }
                     echo $this->Html->Link('Profile', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'profile']);
                     echo $this->Html->Link('Logout' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
                 }
             }else{
                 echo $this->Html->Link('Login', ['plugin' => 'CakeDC/Users','Controller'=> 'Users','action'=> 'login'] );
             }
-
         ?>
         </div>
     </nav>

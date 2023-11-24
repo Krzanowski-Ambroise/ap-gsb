@@ -32,8 +32,8 @@ $iduser = $identity["id"]
                 <?php foreach ($sheets as $sheet): ?>
                     <tr>
                         <td><?= $this->Number->format($sheet->id) ?></td>
-                        <td><?= $sheet->has('state') ? $this->Html->link($sheet->state->state, ['controller' => 'States', 'action' => 'view', $sheet->state->id]) : '' ?></td>
-                        <td><?php if($sheet->sheetvalidated == 1){echo "Validate";}else{echo "Unvalidated";} ?></td>
+                        <td><?= $sheet->state->state ?></td>
+                        <td><?php if($sheet->sheetvalidated == 1){echo "<span style='color: green'>Validate</span>";}else{echo "<span style='color: red'>Unvalidated</span>";} ?></td>
                         <td><?= h($sheet->created) ?></td>
                         <td><?= h($sheet->modified) ?></td>
                         <td class="actions">

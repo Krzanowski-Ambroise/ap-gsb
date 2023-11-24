@@ -63,9 +63,10 @@ class SheetsController extends AppController
                             ['quantity' => $quantity],
                             ['sheet_id' => $id, 'package_id' => $packageId]
                         );
+                        
                     }
                 }
-    
+                $this->Flash->success(__('The quantity has been update.'));
                 return $this->redirect(['action' => 'clientview', $id]);
             }
         }
