@@ -249,7 +249,7 @@ class SheetsController extends AppController
         $iduser = $identity["id"];
     
         $sheets = $this->paginate(
-            $this->Sheets->find('all')->where(['state_id >=' => 2,'state_id <=' => 5])
+            $this->Sheets->find('all')->where(['state_id >=' => 2,'state_id <=' => 4])
         );
 
         $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
