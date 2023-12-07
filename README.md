@@ -1,22 +1,9 @@
 ## Installation
 
-1. Install cakephp project and extract in webroot folder :
-```bash
-composer create-project --prefer-dist cakephp/app:~4.0 app
-```
-2. Configure your Database [Configuration](#Configuration).
-3. Install and configure [CakeDC/Users](https://github.com/CakeDC/users/blob/11.next-cake4/Docs/Documentation/Installation.md).
-4. Import [Database](./ap-gsb.sql).
-5. Continue your project and send me news Discord : `aambroisee`.
-
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
-
-```bash
-bin/cake server -p 8765
-```
-
-Then visit `http://localhost:8765` to see the welcome page.
+1. Download the website file in .zip on github [Download](https://github.com/Krzanowski-Ambroise/ap-gsb/blob/main/ap-gsb-release.zip).
+2. Extract the file and send it to the set of files in the root folder of the web server.
+3. Retrieve the database from the extracted document then import it into your mysql server via for example phpmyadmin[Download](https://github.com/Krzanowski-Ambroise/ap-gsb/blob/main/gsb-cake.sql).
+4. In the website folders you can go to the config/app_local.php folder, modify line 47/48 the database connection information and the name of the database.
 
 ## Update
 
