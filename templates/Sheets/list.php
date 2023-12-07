@@ -15,24 +15,24 @@ $iduser = $identity["id"]
 
 ?>
 <div class="sheets index content">
-<div class="float-left" style="padding: 10px 20px;">Bonjour <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, vous pouvez remplir vos fiches ci-dessous : </div>
+<div class="float-left" style="padding: 10px 20px;">Hello <strong><?php if(empty($identity["first_name"]) && empty($identity["last_name"])){echo $identity["username"];}elseif(empty($identity["first_name"])){echo 'Mr. '.$identity["last_name"];}else{echo $identity["first_name"];} ?></strong>, you can fill out your forms below : </div>
     <?= $this->Form->create($sheet) ?>
     <?php 
         echo $this->Form->control('sheetvalidated', ['type' => 'hidden', 'default' => 0]);
         echo $this->Form->control('state_id', ['type' => 'hidden', 'default' => 1]);
         echo $this->Form->control('user_id', ['type' => 'hidden', 'default' => $identity["id"]]);
     ?>
-    <?= $this->Form->button(__('Créer une fiche'), ['class' => 'button float-right']) ?>
+    <?= $this->Form->button(__('Create a sheet'), ['class' => 'button float-right']) ?>
     <?= $this->Form->end() ?>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id', 'Numéro') ?></th>
-                    <th><?= $this->Paginator->sort('sheetvalidated', 'Validé') ?></th>
-                    <th><?= $this->Paginator->sort('state_id', 'Etat') ?></th>
-                    <th><?= $this->Paginator->sort('created', 'Date de création') ?></th>
-                    <th><?= $this->Paginator->sort('modified', 'Derniére modification') ?></th>
+                    <th><?= $this->Paginator->sort('id', 'ID') ?></th>
+                    <th><?= $this->Paginator->sort('state_id', 'State') ?></th>
+                    <th><?= $this->Paginator->sort('created', 'Created') ?></th>
+                    <th><?= $this->Paginator->sort('modified', 'Modified') ?></th>
+                    <th class="display-flex"><?= $this->Paginator->sort('sheetvalidated', 'Validation') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -41,7 +41,6 @@ $iduser = $identity["id"]
                     <tr>
                         
                         <td><?= $this->Number->format($sheet->id) ?></td>
-                        <td><?php if($sheet->sheetvalidated == 1){echo "<span class='material-symbols-outlined'>check</span>";}else{echo "<span class='material-symbols-outlined'>close</span>";} ?></td>
                         <td><?php
                         if($sheet->state->id == 1){
                             echo "<span style='color: #3498db'>".$sheet->state->state."</span>";
@@ -60,6 +59,7 @@ $iduser = $identity["id"]
                          ?></td>
                         <td><?= h($sheet->created) ?></td>
                         <td><?= h($sheet->modified) ?></td>
+                        <td class="display-flex"><?php if($sheet->sheetvalidated == 1){echo "<div class='tag success'>Validated</div>";}else{echo "<div class='tag error'>Unvalidated</div>";} ?></td>
                         <td class="actions">
                             <?php if($sheet->state->id != 1 || $sheet->sheetvalidated == 1){echo $this->Html->link(__('View'), ['action' => 'clientview', $sheet->id]);}elseif($sheet->state->id == 1){echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}else{echo $this->Html->link(__('Edit'), ['action' => 'clientview', $sheet->id]);}  ?>
                             
@@ -72,12 +72,12 @@ $iduser = $identity["id"]
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('premiére')) ?>
-            <?= $this->Paginator->prev('< ' . __('précédente')) ?>
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('prochaine') . ' >') ?>
-            <?= $this->Paginator->last(__('derniére') . ' >>') ?>
+            <?= $this->Paginator->next(__('after') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, affichant {{current}} record(s) enregistrement(s) sur {{count}} au total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Page {{page}} on {{pages}}, displaying {{current}} record(s) recording(s) on {{count}} in total')) ?></p>
     </div>
 </div>
