@@ -22,24 +22,26 @@ $iduser = $identity["id"]
         echo $this->Form->control('state_id', ['type' => 'hidden', 'default' => 1]);
         echo $this->Form->control('user_id', ['type' => 'hidden', 'default' => $identity["id"]]);
     ?>
-    <?= $this->Form->button(__('Create sheet'), ['class' => 'button float-right']) ?>
+    <?= $this->Form->button(__('Créer une fiche'), ['class' => 'button float-right']) ?>
     <?= $this->Form->end() ?>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('state_id') ?></th>
-                    <th><?= $this->Paginator->sort('sheetvalidated') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('id', 'Numéro') ?></th>
+                    <th><?= $this->Paginator->sort('sheetvalidated', 'Validé') ?></th>
+                    <th><?= $this->Paginator->sort('state_id', 'Etat') ?></th>
+                    <th><?= $this->Paginator->sort('created', 'Date de création') ?></th>
+                    <th><?= $this->Paginator->sort('modified', 'Derniére modification') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($sheets as $sheet): ?>
                     <tr>
+                        
                         <td><?= $this->Number->format($sheet->id) ?></td>
+                        <td><?php if($sheet->sheetvalidated == 1){echo "<span class='material-symbols-outlined'>check</span>";}else{echo "<span class='material-symbols-outlined'>close</span>";} ?></td>
                         <td><?php
                         if($sheet->state->id == 1){
                             echo "<span style='color: #3498db'>".$sheet->state->state."</span>";
@@ -56,7 +58,6 @@ $iduser = $identity["id"]
                         }
         
                          ?></td>
-                        <td><?php if($sheet->sheetvalidated == 1){echo "<span style='color: green'>Validate</span>";}else{echo "<span style='color: red'>Unvalidated</span>";} ?></td>
                         <td><?= h($sheet->created) ?></td>
                         <td><?= h($sheet->modified) ?></td>
                         <td class="actions">
@@ -71,12 +72,12 @@ $iduser = $identity["id"]
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('premiére')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédente')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('prochaine') . ' >') ?>
+            <?= $this->Paginator->last(__('derniére') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, affichant {{current}} record(s) enregistrement(s) sur {{count}} au total')) ?></p>
     </div>
 </div>

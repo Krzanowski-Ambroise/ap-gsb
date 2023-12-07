@@ -57,7 +57,7 @@ $total_outpackage = 0;
             </table>
             
             <div class="related">
-                <h4 class="float-left"><?= __('Related Packages') ?></h4>
+                <h4 class="float-left"><?= __('Listes des Forfaits') ?></h4>
                 <?= $this->Form->create($sheet, ['url' => ['controller' => 'Sheets', 'action' => 'clientview', $sheet->id]]) ?>
                 <?php if (!empty($sheet->packages)) : ?>
                     <div class="table-responsive">
@@ -100,20 +100,20 @@ $total_outpackage = 0;
                         <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
                             <td>
                                 <?= $this->Form->hidden('action', ['value' => '']) ?>
-                                <?= $this->Form->button('Save', ['type' => 'submit']) ?>
+                                <?= $this->Form->button('Sauvegarder', ['type' => 'submit']) ?>
                             </td> 
                         <?php endif; ?>
-                        <?= '<strong style="margin-left: 1rem">Total package : </strong>'.$total_package." €" ?>
+                        <?= '<strong style="margin-left: 1rem">Total forfaits : </strong>'.$total_package." €" ?>
                     </div>
                 <?php endif; ?>
                 <?= $this->Form->end() ?>
                 
             </div>
             <div class="related">
-                <h4 class="float-left"><?= __('Related Outpackages') ?></h4>
+                <h4 class="float-left"><?= __('Listes des Hors Forfaits') ?></h4>
                 <?php if($sheet->state->id == 1): ?>
                     <?php if($sheet->sheetvalidated == false): ?>
-                        <?= $this->Html->link('New outpackage', ['controller' => 'Outpackages', 'action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
+                        <?= $this->Html->link('Nouveau Hors forfait', ['controller' => 'Outpackages', 'action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!empty($sheet->outpackages)) : ?>
@@ -154,7 +154,7 @@ $total_outpackage = 0;
                     </table>
                 </div>
                 <?php endif; ?>
-                <?= '<div style="margin-top: 1rem"><strong>Total outpackage : </strong>'.$total_outpackage." €</div>" ?>
+                <?= '<div style="margin-top: 1rem"><strong>Total hors forfaits : </strong>'.$total_outpackage." €</div>" ?>
                 <?= '</br><strong>Total : </strong>'.$total = $total_outpackage + $total_package." €" ?>
             </div>
             
