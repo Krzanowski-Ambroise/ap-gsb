@@ -66,62 +66,13 @@ class SheetsController extends AppController
                         
                     }
                 }
-                $this->Flash->success(__('The quantity has been update.'));
+                $this->Flash->success(__('La quantité a été mise à jour.'));
                 return $this->redirect(['action' => 'clientview', $id]);
             }
         }
     
         $this->set(compact('sheet'));
     }
-
-    public function updateQuantity($id = null)
-    {
-        // Vérifie si la requête est une requête POST
-        if ($this->request->is(['post', 'put'])) {
-            // Récupère les données du formulaire
-            $data = $this->request->getData();
-
-            // Vérifie si les données nécessaires sont présentes
-            if (isset($data['package_id'], $data['action'])) {
-                // Récupère l'id du package et l'action depuis les données du formulaire
-                $packageId = $data['package_id'];
-                $action = $data['action'];
-
-                // Récupère la feuille associée à l'id
-                $sheet = $this->Sheets->get($id, [
-                    'contain' => ['Packages'], // Assure-toi que Packages est correctement inclus dans le 'contain'
-                ]);
-
-                // Recherche le package dans la liste des packages de la feuille
-                foreach ($sheet->packages as $package) {
-                    if ($package->id == $packageId) {
-                        // Met à jour la quantité en fonction de l'action
-                        if ($action === 'increment') {
-                            $package->_joinData->quantity++;
-                        } elseif ($action === 'decrement' && $package->_joinData->quantity > 0) {
-                            $package->_joinData->quantity--;
-                        }
-
-                        // Débogage : Vérifie que la quantité a été mise à jour correctement
-                        debug($package->_joinData->quantity);
-
-                        // Sauvegarde la feuille mise à jour
-                        if ($this->Sheets->save($sheet)) {
-                            // Débogage : Vérifie que la feuille a été sauvegardée correctement
-                            debug($sheet);
-                            
-                            // Redirige vers l'action clientview avec l'id de la feuille
-                            return $this->redirect(['action' => 'clientview', $id]);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Redirige en cas de problème
-        return $this->redirect(['action' => 'clientview', $id]);
-    }
-
 
     /**
      * Add method
@@ -167,7 +118,7 @@ class SheetsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
+            $this->Flash->error(__("La feuille n'a pas pu être enregistrée. Veuillez réessayer."));
         }
         $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
         $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
@@ -188,9 +139,9 @@ class SheetsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $sheet = $this->Sheets->get($id);
         if ($this->Sheets->delete($sheet)) {
-            $this->Flash->success(__('The sheet has been deleted.'));
+            $this->Flash->success(__('La feuille a été supprimée.'));
         } else {
-            $this->Flash->error(__('The sheet could not be deleted. Please, try again.'));
+            $this->Flash->error(__("La feuille n'a pas pu être supprimée. Veuillez réessayer."));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -230,7 +181,7 @@ class SheetsController extends AppController
                 return $this->redirect(['action' => 'list']);
             }
 
-            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
+            $this->Flash->error(__("La feuille n'a pas pu être enregistrée. Veuillez réessayer."));
         }
 
         $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
@@ -292,9 +243,9 @@ class SheetsController extends AppController
         $sheet = $this->Sheets->get($id);
         $sheet->sheetvalidated = true; // Mettez à jour la valeur en fonction de vos besoins
         if ($this->Sheets->save($sheet)) {
-            $this->Flash->success(__('Sheet validated successfully.'));
+            $this->Flash->success(__('Fiche validée avec succès.'));
         } else {
-            $this->Flash->error(__('Unable to validate the sheet. Please, try again.'));
+            $this->Flash->error(__('Impossible de valider la fiche. Veuillez réessayer.'));
         }
         return $this->redirect(['action' => 'compview', $id]);
     }
@@ -306,7 +257,7 @@ class SheetsController extends AppController
         $this->Sheets->save($sheet);
 
         // Redirigez ou effectuez d'autres actions après la dévalidation.
-        $this->Flash->success(__('Sheet unvalidated successfully.'));
+        $this->Flash->success(__('Feuille non validée avec succès.'));
         return $this->redirect(['action' => 'compview', $id]);
     }
 }
