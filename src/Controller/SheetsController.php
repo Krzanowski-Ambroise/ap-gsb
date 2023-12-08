@@ -146,6 +146,18 @@ class SheetsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function clientdelete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $sheet = $this->Sheets->get($id);
+        if ($this->Sheets->delete($sheet)) {
+            $this->Flash->success(__('La feuille a été supprimée.'));
+        } else {
+            $this->Flash->error(__("La feuille n'a pas pu être supprimée. Veuillez réessayer."));
+        }
+
+        return $this->redirect(['action' => 'list']);
+    }
     public function list()
     {
         $this->paginate = [

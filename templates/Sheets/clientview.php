@@ -17,7 +17,7 @@ $total_outpackage = 0;
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
-                <?= $this->Form->postLink(__('Delete Sheet'), ['action' => 'delete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id), 'class' => 'side-nav-item']) ?>
+                <?= $this->Form->postLink(__('Delete Sheet'), ['action' => 'clientdelete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id), 'class' => 'side-nav-item']) ?>
             <?php endif; ?>
             <?= $this->Html->link(__('List Sheets'), ['action' => 'list'], ['class' => 'side-nav-item']) ?>
         </div>

@@ -133,7 +133,7 @@ return [
             'role' => '*',
             'controller' => 'Pages',
             'action' => ['display', 'home'],
-            'allowed' => true,
+            'bypassAuth' => true,
             
         ],
         [
@@ -142,6 +142,16 @@ return [
             'controller' => '*',
             'action' => '*',
             'bypassAuth' => true,
+        ],
+        [
+            'role' => 'user',
+            'controller' => '*',
+            'action' => ['list', 'clientview', 'clientadd', 'addoutpackage', 'clientdelete'],
+        ],
+        [
+            'role' => 'comptable',
+            'controller' => '*',
+            'action' => ['compview', 'complist', 'unvalidate', 'validate'],
         ],
     ]
 ];
