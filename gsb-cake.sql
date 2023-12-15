@@ -105,7 +105,7 @@ INSERT INTO `packages` (`id`, `price`, `title`, `body`) VALUES
 
 CREATE TABLE `sheets` (
   `id` int NOT NULL,
-  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `state_id` int NOT NULL,
   `sheetvalidated` tinyint(1) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -164,7 +164,7 @@ CREATE TABLE `sheets_packages` (
   `sheet_id` int NOT NULL,
   `package_id` int NOT NULL,
   `quantity` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `sheets_packages`
@@ -224,7 +224,7 @@ CREATE TABLE `social_accounts` (
   `data` text NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -275,7 +275,7 @@ CREATE TABLE `users` (
   `modified` datetime NOT NULL,
   `additional_data` text,
   `last_login` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
