@@ -113,7 +113,7 @@ $total_outpackage = 0;
                 <h4 class="float-left"><?= __('Listes des hors-packages') ?></h4>
                 <?php if($sheet->state->id == 1): ?>
                     <?php if($sheet->sheetvalidated == false): ?>
-                        <?= $this->Html->link('New Out of package', ['controller' => 'Outpackages', 'action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
+                        <?= $this->Html->link('Nouveau Hors forfait', ['controller' => 'Outpackages', 'action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!empty($sheet->outpackages)) : ?>
