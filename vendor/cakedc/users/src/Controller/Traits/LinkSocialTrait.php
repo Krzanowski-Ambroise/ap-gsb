@@ -77,11 +77,11 @@ trait LinkSocialTrait
             if ($user->getErrors()) {
                 $this->Flash->error($message);
             } else {
-                $this->Flash->success(__d('cake_d_c/users', 'Social account was associated.'));
+                $this->Flash->success(__d('cake_d_c/users', 'Le compte social a été associé.'));
             }
         } catch (\Exception $e) {
             $log = sprintf(
-                'Error linking social account: %s %s',
+                "Erreur lors de l'association du compte social : %s %s",
                 $e->getMessage(),
                 $e
             );

@@ -51,11 +51,11 @@ trait ProfileTrait
                 $isCurrentUser = true;
             }
         } catch (RecordNotFoundException $ex) {
-            $this->Flash->error(__d('cake_d_c/users', 'User was not found'));
+            $this->Flash->error(__d('cake_d_c/users', 'L\'utilisateur n\'a pas été trouvé'));
 
             return $this->redirect($this->getRequest()->referer());
         } catch (InvalidPrimaryKeyException $ex) {
-            $this->Flash->error(__d('cake_d_c/users', 'Not authorized, please login first'));
+            $this->Flash->error(__d('cake_d_c/users', 'Non autorisé, veuillez d\'abord vous connecter'));
 
             return $this->redirect($this->getRequest()->referer());
         }

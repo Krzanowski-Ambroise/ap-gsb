@@ -54,7 +54,7 @@ class PackagesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The package could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le package n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
         $sheets = $this->Packages->Sheets->find('list', ['limit' => 200])->all();
         $this->set(compact('package', 'sheets'));
@@ -75,11 +75,11 @@ class PackagesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $package = $this->Packages->patchEntity($package, $this->request->getData());
             if ($this->Packages->save($package)) {
-                $this->Flash->success(__('The package has been saved.'));
+                $this->Flash->success(__('Le paquet a été enregistré.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The package could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le package n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
         $sheets = $this->Packages->Sheets->find('list', ['limit' => 200])->all();
         $this->set(compact('package', 'sheets'));
@@ -97,9 +97,9 @@ class PackagesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $package = $this->Packages->get($id);
         if ($this->Packages->delete($package)) {
-            $this->Flash->success(__('The package has been deleted.'));
+            $this->Flash->success(__('Le paquet a été supprimé.'));
         } else {
-            $this->Flash->error(__('The package could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Le package n\'a pas pu être supprimé. Veuillez réessayer.'));
         }
 
         return $this->redirect(['action' => 'index']);

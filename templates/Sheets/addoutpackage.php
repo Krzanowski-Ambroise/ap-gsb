@@ -28,7 +28,7 @@ debug($this->request->getData('sheets._ids'))
         <div class="outpackages form content">
             <?= $this->Form->create($outpackage) ?>
             <fieldset>
-                <legend><?= __('Add Outpackage') ?></legend>
+                <legend><?= __('Ajouter un outpackage') ?></legend>
                 <?php   
                     echo $this->Form->control('price');
                     echo $this->Form->control('title');
@@ -42,7 +42,7 @@ debug($this->request->getData('sheets._ids'))
                     ]);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Soumettre')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

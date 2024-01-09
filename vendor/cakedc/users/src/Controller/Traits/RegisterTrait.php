@@ -44,7 +44,7 @@ trait RegisterTrait
         $identity = $identity ?? [];
         $userId = $identity['id'] ?? null;
         if (!empty($userId) && !Configure::read('Users.Registration.allowLoggedIn')) {
-            $this->Flash->error(__d('cake_d_c/users', 'You must log out to register a new user account'));
+            $this->Flash->error(__d('cake_d_c/users', 'Vous devez vous déconnecter pour enregistrer un nouveau compte utilisateur'));
 
             return $this->redirect(Configure::read('Users.Profile.route'));
         }
@@ -83,7 +83,7 @@ trait RegisterTrait
                 return;
             } else {
                 $this->set(['user' => $user]);
-                $this->Flash->error(__d('cake_d_c/users', 'The user could not be saved'));
+                $this->Flash->error(__d('cake_d_c/users', 'L\'utilisateur n\'a pas pu être enregistré'));
 
                 return;
             }
@@ -114,7 +114,7 @@ trait RegisterTrait
 
             return;
         } elseif (!$userSaved) {
-            $this->Flash->error(__d('cake_d_c/users', 'The user could not be saved'));
+            $this->Flash->error(__d('cake_d_c/users', 'L\'utilisateur n\'a pas pu être enregistré'));
 
             return;
         }
@@ -148,9 +148,9 @@ trait RegisterTrait
     protected function _afterRegister(EntityInterface $userSaved)
     {
         $validateEmail = (bool)Configure::read('Users.Email.validate');
-        $message = __d('cake_d_c/users', 'You have registered successfully, please log in');
+        $message = __d('cake_d_c/users', 'Vous vous êtes inscrit avec succès, veuillez vous connecter');
         if ($validateEmail) {
-            $message = __d('cake_d_c/users', 'Please validate your account before log in');
+            $message = __d('cake_d_c/users', 'Veuillez valider votre compte avant de vous connecter');
         }
         $event = $this->dispatchEvent(Plugin::EVENT_AFTER_REGISTER, [
             'user' => $userSaved,

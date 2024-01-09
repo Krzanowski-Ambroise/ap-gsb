@@ -53,11 +53,11 @@ class SheetsPackagesController extends AppController
         if ($this->request->is('post')) {
             $sheetsPackage = $this->SheetsPackages->patchEntity($sheetsPackage, $this->request->getData());
             if ($this->SheetsPackages->save($sheetsPackage)) {
-                $this->Flash->success(__('The sheets package has been saved.'));
+                $this->Flash->success(__('Le paquet de feuilles a été enregistré.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sheets package could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le paquet de feuilles n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
         $sheets = $this->SheetsPackages->Sheets->find('list', ['limit' => 200])->all();
         $packages = $this->SheetsPackages->Packages->find('list', ['limit' => 200])->all();
@@ -79,11 +79,11 @@ class SheetsPackagesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $sheetsPackage = $this->SheetsPackages->patchEntity($sheetsPackage, $this->request->getData());
             if ($this->SheetsPackages->save($sheetsPackage)) {
-                $this->Flash->success(__('The sheets package has been saved.'));
+                $this->Flash->success(__('Le paquet de feuilles a été enregistré.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sheets package could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le paquet de feuilles n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
         $sheets = $this->SheetsPackages->Sheets->find('list', ['limit' => 200])->all();
         $packages = $this->SheetsPackages->Packages->find('list', ['limit' => 200])->all();
@@ -102,9 +102,9 @@ class SheetsPackagesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $sheetsPackage = $this->SheetsPackages->get($id);
         if ($this->SheetsPackages->delete($sheetsPackage)) {
-            $this->Flash->success(__('The sheets package has been deleted.'));
+            $this->Flash->success(__('Le package de feuilles a été supprimé.'));
         } else {
-            $this->Flash->error(__('The sheets package could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Le package de feuilles n\'a pas pu être supprimé. Veuillez réessayer.'));
         }
 
         return $this->redirect(['action' => 'index']);

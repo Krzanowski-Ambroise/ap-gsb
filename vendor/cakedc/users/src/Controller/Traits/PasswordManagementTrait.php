@@ -60,7 +60,7 @@ trait PasswordManagementTrait
                 $redirect = Configure::read('Users.Profile.route');
             } else {
                 $this->Flash->error(
-                    __d('cake_d_c/users', 'Changing another user\'s password is not allowed')
+                    __d('cake_d_c/users', 'Changer le mot de passe d\'un autre utilisateur n\'est pas autorisé')
                 );
                 $this->redirect(Configure::read('Users.Profile.route'));
 
@@ -74,7 +74,7 @@ trait PasswordManagementTrait
             $validatePassword = false;
             $redirect = $this->Authentication->getConfig('loginAction');
             if (!$user->id) {
-                $this->Flash->error(__d('cake_d_c/users', 'User was not found'));
+                $this->Flash->error(__d('cake_d_c/users', 'L\'utilisateur n\'a pas été trouvé'));
                 $this->redirect($redirect);
 
                 return;
@@ -102,7 +102,7 @@ trait PasswordManagementTrait
                 );
 
                 if ($user->getErrors()) {
-                    $this->Flash->error(__d('cake_d_c/users', 'Password could not be changed'));
+                    $this->Flash->error(__d('cake_d_c/users', 'Le mot de passe n\'a pas pu être modifié'));
                 } else {
                     $result = $this->getUsersTable()->changePassword($user);
                     if ($result) {
@@ -110,19 +110,19 @@ trait PasswordManagementTrait
                         if (!empty($event) && is_array($event->getResult())) {
                             return $this->redirect($event->getResult());
                         }
-                        $this->Flash->success(__d('cake_d_c/users', 'Password has been changed successfully'));
+                        $this->Flash->success(__d('cake_d_c/users', 'Le mot de passe a été modifié avec succès'));
 
                         return $this->redirect($redirect);
                     } else {
-                        $this->Flash->error(__d('cake_d_c/users', 'Password could not be changed'));
+                        $this->Flash->error(__d('cake_d_c/users', 'Le mot de passe n\'a pas pu être modifié'));
                     }
                 }
             } catch (UserNotFoundException $exception) {
-                $this->Flash->error(__d('cake_d_c/users', 'User was not found'));
+                $this->Flash->error(__d('cake_d_c/users', 'L\'utilisateur n\'a pas été trouvé'));
             } catch (WrongPasswordException $wpe) {
                 $this->Flash->error($wpe->getMessage());
             } catch (Exception $exception) {
-                $this->Flash->error(__d('cake_d_c/users', 'Password could not be changed'));
+                $this->Flash->error(__d('cake_d_c/users', 'Le mot de passe n\'a pas pu être modifié'));
                 $this->log($exception->getMessage());
             }
         }
@@ -164,10 +164,10 @@ trait PasswordManagementTrait
                 'type' => 'password',
             ]);
             if ($resetUser) {
-                $msg = __d('cake_d_c/users', 'Please check your email to continue with password reset process');
+                $msg = __d('cake_d_c/users', 'Veuillez vérifier votre courrier électronique pour poursuivre le processus de réinitialisation du mot de passe.');
                 $this->Flash->success($msg);
             } else {
-                $msg = __d('cake_d_c/users', 'The password token could not be generated. Please try again');
+                $msg = __d('cake_d_c/users', 'Le jeton de mot de passe n\'a pas pu être généré. Veuillez réessayer');
                 $this->Flash->error($msg);
             }
 

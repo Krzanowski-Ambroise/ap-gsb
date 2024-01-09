@@ -72,7 +72,7 @@ class OutpackagesController extends AppController
                 $intValue = (int)$firstValue;
                 return $this->redirect(['controller' => 'sheets','action' => 'clientview', $intValue]);
             }
-            $this->Flash->error(__('The outpackage could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le package n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
         $sheets = $this->Outpackages->Sheets->find('list', ['limit' => 200])->all();
         $this->set(compact('outpackage', 'sheets'));
@@ -97,7 +97,7 @@ class OutpackagesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The outpackage could not be saved. Please, try again.'));
+            $this->Flash->error(__('Le package n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
         $sheets = $this->Outpackages->Sheets->find('list', ['limit' => 200])->all();
         $this->set(compact('outpackage', 'sheets'));
@@ -115,9 +115,9 @@ class OutpackagesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $outpackage = $this->Outpackages->get($id);
         if ($this->Outpackages->delete($outpackage)) {
-            $this->Flash->success(__('The outpackage has been deleted.'));
+            $this->Flash->success(__('L\'outpackage a été supprimé.'));
         } else {
-            $this->Flash->error(__('The outpackage could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Le package n\'a pas pu être enregistré. Veuillez réessayer.'));
         }
 
         return $this->redirect(['controller' => 'sheets','action' => 'clientview', $iduser]);

@@ -85,11 +85,11 @@ class SheetsController extends AppController
         if ($this->request->is('post')) {
             $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
             if ($this->Sheets->save($sheet)) {
-                $this->Flash->success(__('The sheet has been saved.'));
+                $this->Flash->success(__('La feuille a été enregistrée.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The sheet could not be saved. Please, try again.'));
+            $this->Flash->error(__('La feuille n\'a pas pu être enregistrée. Veuillez réessayer.'));
         }
         $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
         $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
@@ -114,7 +114,7 @@ class SheetsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
             if ($this->Sheets->save($sheet)) {
-                $this->Flash->success(__('The sheet has been saved.'));
+                $this->Flash->success(__('La feuille a été enregistrée.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -175,7 +175,7 @@ class SheetsController extends AppController
         if ($this->request->is('post')) {
             $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
             if ($this->Sheets->save($sheet)) {
-                $this->Flash->success(__('The sheet has been saved.'));
+                $this->Flash->success(__('La feuille a été enregistrée.'));
 
                 // Initialise la table sheets_packages avec une quantité de 0 pour chaque package
                 $packages = $this->Sheets->Packages->find()->toArray();

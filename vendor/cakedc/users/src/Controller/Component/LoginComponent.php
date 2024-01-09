@@ -64,7 +64,7 @@ class LoginComponent extends Component
         $request = $this->getController()->getRequest();
         $service = $request->getAttribute('authentication');
         if (!$service) {
-            throw new \UnexpectedValueException('Authentication service not found in this request');
+            throw new \UnexpectedValueException("Service d'authentification introuvable dans cette demande");
         }
         $eventBefore = $this->getController()->dispatchEvent(Plugin::EVENT_BEFORE_LOGIN, []);
         if (is_array($eventBefore->getResult())) {
@@ -165,8 +165,8 @@ class LoginComponent extends Component
         if (!$this->checkSafeHost($queryRedirect)) {
             $userId = $user['id'] ?? null;
             Log::info(
-                "Unsafe redirect `$queryRedirect` ignored, user id `{$userId}` " .
-                "redirected to `$redirectUrl` after successful login"
+                "Redirection dangereuse `$queryRedirect` ignoré, identifiant d'utilisateur `{$userId}` " .
+                "redirigé vers `$redirectUrl` après une connexion réussie"
             );
             $queryRedirect = $redirectUrl;
         }

@@ -72,7 +72,7 @@ trait OneTimePasswordVerifyTrait
     protected function isVerifyAllowed()
     {
         if (!Configure::read('OneTimePasswordAuthenticator.login')) {
-            $message = __d('cake_d_c/users', 'Please enable Google Authenticator first.');
+            $message = __d('cake_d_c/users', 'Veuillez d\'abord activer Google Authenticator.');
             $this->Flash->error($message, [
                 'key' => 'auth',
                 'element' => 'default',
@@ -87,7 +87,7 @@ trait OneTimePasswordVerifyTrait
         );
 
         if (empty($temporarySession) || !isset($temporarySession['id'])) {
-            $message = __d('cake_d_c/users', 'Could not find user data');
+            $message = __d('cake_d_c/users', 'Impossible de trouver les données utilisateur');
             $this->Flash->error($message, [
                 'key' => 'auth',
                 'element' => 'default',
@@ -121,7 +121,7 @@ trait OneTimePasswordVerifyTrait
             $this->getRequest()->getSession()->write(AuthenticationService::TWO_FACTOR_VERIFY_SESSION_KEY, $user);
         } catch (\Exception $e) {
             $this->getRequest()->getSession()->destroy();
-            $message = __d('cake_d_c/users', 'Could not verify, please try again');
+            $message = __d('cake_d_c/users', 'Impossible de vérifier, veuillez réessayer');
             $this->Flash->error($message, [
                 'key' => 'auth',
                 'element' => 'default',
@@ -153,7 +153,7 @@ trait OneTimePasswordVerifyTrait
 
         if (!$codeVerified) {
             $this->getRequest()->getSession()->destroy();
-            $message = __d('cake_d_c/users', 'Verification code is invalid. Try again');
+            $message = __d('cake_d_c/users', 'Le code de vérification n\'est pas valide. Essayer à nouveau');
             $this->Flash->error($message, [
                 'key' => 'auth',
                 'element' => 'default',

@@ -17,9 +17,9 @@ $total_outpackage = 0;
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
-                <?= $this->Form->postLink(__('Delete Sheet'), ['action' => 'clientdelete', $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sheet->id), 'class' => 'side-nav-item']) ?>
+                <?= $this->Form->postLink(__('Supprimer la feuille'), ['action' => 'clientdelete', $sheet->id], ['confirm' => __('Etes-vous sûr que vous voulez supprimer # {0}?', $sheet->id), 'class' => 'side-nav-item']) ?>
             <?php endif; ?>
-            <?= $this->Html->link(__('List Sheets'), ['action' => 'list'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Fiche de liste'), ['action' => 'list'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -27,15 +27,15 @@ $total_outpackage = 0;
             <h3><?= h($sheet->id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Last name') ?></th>
+                    <th><?= __('Nom de famille') ?></th>
                     <td><?= $sheet->user->last_name ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('First name') ?></th>
+                    <th><?= __('Prénom') ?></th>
                     <td><?= $sheet->user->first_name ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('State') ?></th>
+                    <th><?= __('État') ?></th>
                     <td><?= $sheet->state->state ?></td>
                 </tr>
                 <tr>
@@ -43,30 +43,30 @@ $total_outpackage = 0;
                     <td><?= $this->Number->format($sheet->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
+                    <th><?= __('Créé') ?></th>
                     <td><?= h($sheet->created) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Modified') ?></th>
+                    <th><?= __('Modifié') ?></th>
                     <td><?= h($sheet->modified) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Validation') ?></th>
-                    <td style="justify-content: start;" class="display-flex"><?= $sheet->sheetvalidated ? __('<div class="tag success">Validated</div>') : __('<div class="tag error">Unvalidated</div>'); ?></td>
+                    <td style="justify-content: start;" class="display-flex"><?= $sheet->sheetvalidated ? __('<div class="tag success">Validé</div>') : __('<div class="tag error">Non validé</div>'); ?></td>
                 </tr>
             </table>
             
             <div class="related">
-                <h4 class="float-left"><?= __('Package Lists') ?></h4>
+                <h4 class="float-left"><?= __('Listes de paquets') ?></h4>
                 <?= $this->Form->create($sheet, ['url' => ['controller' => 'Sheets', 'action' => 'clientview', $sheet->id]]) ?>
                 <?php if (!empty($sheet->packages)) : ?>
                     <div class="table-responsive">
                         <table>
                             <tr>
                                 <th><?= __('ID') ?></th>
-                                <th><?= __('Quantity') ?></th>
-                                <th><?= __('Price') ?></th>
-                                <th><?= __('Title') ?></th>
+                                <th><?= __('Quantité') ?></th>
+                                <th><?= __('Prix') ?></th>
+                                <th><?= __('Titre') ?></th>
                                 <th><?= __('Description') ?></th>
                             </tr>
                             <?php foreach ($sheet->packages as $package) : ?>
@@ -80,7 +80,7 @@ $total_outpackage = 0;
                                     <?php else: ?>
                                         <td><?php echo $package->_joinData->quantity ?></td>
                                     <?php endif; ?>
-                                    <td><?= h($package->price) ?> €</td>
+                                    <td><?= h($package->price) ?>€</td>
                                     <td><?= h($package->title) ?></td>
                                     <!-- Limiter la taille du champ body à 100 caractères -->
                                     <td title="<?= h($package->body) ?>">
@@ -100,7 +100,7 @@ $total_outpackage = 0;
                         <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
                             <td>
                                 <?= $this->Form->hidden('action', ['value' => '']) ?>
-                                <?= $this->Form->button('Save', ['type' => 'submit']) ?>
+                                <?= $this->Form->button('Sauvegarder', ['type' => 'submit']) ?>
                             </td> 
                         <?php endif; ?>
                         <?= '<strong style="margin-left: 1rem">Total packages: </strong>'.$total_package." €" ?>
@@ -110,7 +110,7 @@ $total_outpackage = 0;
                 
             </div>
             <div class="related">
-                <h4 class="float-left"><?= __('Lists of Out-Packages') ?></h4>
+                <h4 class="float-left"><?= __('Listes des hors-packages') ?></h4>
                 <?php if($sheet->state->id == 1): ?>
                     <?php if($sheet->sheetvalidated == false): ?>
                         <?= $this->Html->link('New Out of package', ['controller' => 'Outpackages', 'action' => 'addoutpackage', $sheet->id], ['class' => 'button float-right']) ?>
@@ -122,8 +122,8 @@ $total_outpackage = 0;
                         <tr>
                             <th><?= __('ID') ?></th>
                             <th><?= __('Date') ?></th>
-                            <th><?= __('Price') ?></th>
-                            <th><?= __('Title') ?></th>
+                            <th><?= __('Prix') ?></th>
+                            <th><?= __('Titre') ?></th>
                             <th><?= __('Description') ?></th>
                             <?php if($sheet->state->id == 1): ?>
                                 <?php if($sheet->sheetvalidated == false): ?>
@@ -135,7 +135,7 @@ $total_outpackage = 0;
                         <tr>
                             <td><?= h($outpackages->id) ?></td>
                             <td><?= h($outpackages->date) ?></td>
-                            <td><?= h($outpackages->price) ?> €</td>
+                            <td><?= h($outpackages->price) ?>€</td>
                             <td><?= h($outpackages->title) ?></td>
                             <!-- Limiter la taille du champ body à 100 caractères -->
                             <td title="<?= h($outpackages->body) ?>">
@@ -144,7 +144,7 @@ $total_outpackage = 0;
                             <?php if($sheet->state->id == 1): ?>
                                 <?php if($sheet->sheetvalidated == false): ?>
                                     <td class="actions">
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Outpackages', 'action' => 'delete', $outpackages->id, $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $outpackages->id)]) ?>
+                                        <?= $this->Form->postLink(__('Supprimer'), ['controller' => 'Outpackages', 'action' => 'delete', $outpackages->id, $sheet->id], ['confirm' => __('Etes-vous sûr que vous voulez supprimer # {0}?', $outpackages->id)]) ?>
                                     </td>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -154,7 +154,7 @@ $total_outpackage = 0;
                     </table>
                 </div>
                 <?php endif; ?>
-                <?= '<div style="margin-top: 1rem"><strong>Total out packages: </strong>'.$total_outpackage." €</div>" ?>
+                <?= '<div style="margin-top: 1rem"><strong>Total des forfaits : </strong>'.$total_outpackage." €</div>" ?>
                 <?= '</br><strong>Total : </strong>'.$total = $total_outpackage + $total_package." €" ?>
             </div>
             

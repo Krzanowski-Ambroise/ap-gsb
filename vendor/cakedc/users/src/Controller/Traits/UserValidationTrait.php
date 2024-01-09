@@ -73,7 +73,7 @@ trait UserValidationTrait
                     $this->Flash->error(__d('cake_d_c/users', 'Invalid validation type'));
             }
         } catch (UserNotFoundException $ex) {
-            $this->Flash->error(__d('cake_d_c/users', 'Invalid token or user account already validated'));
+            $this->Flash->error(__d('cake_d_c/users', 'Token invalide ou compte utilisateur déjà validé'));
         } catch (TokenExpiredException $ex) {
             $event = $this->dispatchEvent(Plugin::EVENT_ON_EXPIRED_TOKEN, ['type' => $type]);
             if (!empty($event) && is_array($event->getResult())) {

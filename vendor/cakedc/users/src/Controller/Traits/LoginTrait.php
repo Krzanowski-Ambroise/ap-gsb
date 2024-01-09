@@ -70,7 +70,7 @@ trait LoginTrait
         }
 
         $this->getRequest()->getSession()->destroy();
-        $this->Flash->success(__d('cake_d_c/users', 'You\'ve successfully logged out'));
+        $this->Flash->success(__d('cake_d_c/users', 'Vous vous êtes déconnecté avec succès'));
 
         $eventAfter = $this->dispatchEvent(Plugin::EVENT_AFTER_LOGOUT, ['user' => $user]);
         if (is_array($eventAfter->getResult())) {
