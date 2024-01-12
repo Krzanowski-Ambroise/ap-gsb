@@ -131,10 +131,9 @@ return [
         //all roles allowed to Pages/display
         [
             'role' => '*',
-            'controller' => 'Pages',
-            'action' => ['display', 'home'],
+            'controller' => '*',
+            'action' => ['display', 'home', 'getSheetInfo'],
             'bypassAuth' => true,
-            
         ],
         [
             'role' => '*',
@@ -146,12 +145,12 @@ return [
         [
             'role' => 'user',
             'controller' => '*',
-            'action' => ['list', 'clientview', 'clientadd', 'addoutpackage', 'clientdelete'],
+            'action' => ['list', 'clientview', 'clientadd', 'addoutpackage', 'clientdelete', 'generateApiToken'],
         ],
         [
             'role' => 'comptable',
             'controller' => '*',
-            'action' => ['compview', 'complist', 'unvalidate', 'validate'],
+            'action' => ['compview', 'complist', 'unvalidate', 'validate', 'generateApiToken'],
         ],
     ]
 ];

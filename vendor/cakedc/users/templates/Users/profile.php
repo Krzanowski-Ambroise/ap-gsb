@@ -31,6 +31,18 @@
             <p><?= h($user->username) ?></p>
             <h6 class="subheader"><?= __d('cake_d_c/users', 'Email') ?></h6>
             <p><?= h($user->email) ?></p>
+            <?= $this->Html->Link('Générer une nouvelle clée API', ['plugin' => NULL,'controller' => 'Api', 'action' => 'generateApiToken']); ?>
+            <?php if(empty($user->api_token)): ?>
+            <?php else: ?>
+                <h6 class="subheader">Clé api :</h6>
+                <p><?= h($user->api_token) ?></p>
+                <?= $this->Html->Link('Exemple utilisation API (uniquement Admin sheet id 8) "apgsb.test/Api/getSheetInfo?id_sheet=8&api_token='.$user->api_token.'"', ['plugin' => NULL,'controller' => 'Api', 'action' => 'getSheetInfo', '?' => [
+                'id_sheet' => '8',
+                'api_token' => $user->api_token,
+            ]]); ?>
+            <?php endif;?>
+            
+            
             <?= $this->User->socialConnectLinkList($user->social_accounts) ?>
             <?php
             if (!empty($user->social_accounts)):

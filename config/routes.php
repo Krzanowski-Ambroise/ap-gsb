@@ -85,6 +85,10 @@ return function (RouteBuilder $routes): void {
         $builder->fallbacks();
     });
 
+    $routes->scope('/api', function (RouteBuilder $builder) {
+        $builder->connect('/generateApiToken', ['controller' => 'Api', 'action' => 'generateApiToken']);
+    });
+
     /*
      * If you need a different set of middleware or none at all,
      * open new scope and define routes there.
