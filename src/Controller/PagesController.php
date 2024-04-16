@@ -81,4 +81,8 @@ class PagesController extends AppController
     public function adminpanel(){
 
     }
+    public function test()
+    {
+
+    }
 }
