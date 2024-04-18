@@ -58,6 +58,10 @@ class SheetsTable extends Table
             'foreignKey' => 'state_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Doctors', [
+            'foreignKey' => 'doctor_id',
+            'joinType' => 'INNER',
+        ]);
         $this->belongsToMany('Outpackages', [
             'foreignKey' => 'sheet_id',
             'targetForeignKey' => 'outpackage_id',

@@ -145,12 +145,12 @@ return [
         [
             'role' => 'user',
             'controller' => '*',
-            'action' => ['list', 'clientview', 'clientadd', 'addoutpackage', 'clientdelete', 'generateApiToken'],
+            'action' => ['list', 'clientview', 'clientadd', 'addoutpackage', 'clientdelete', 'generateApiToken', 'editdoctor'],
         ],
         [
             'role' => 'comptable',
             'controller' => '*',
-            'action' => ['compview', 'complist', 'unvalidate', 'validate', 'generateApiToken'],
+            'action' => ['compview', 'complist', 'unvalidate', 'validate', 'generateApiToken', 'listdoctor'],
         ],
     ]
 ];

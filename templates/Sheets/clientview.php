@@ -43,6 +43,10 @@ $total_outpackage = 0;
                     <td><?= $this->Number->format($sheet->id) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Docteur') ?></th>
+                    <td><?= $sheet->doctor->doctor ?><?= $this->Html->link(__('Edit'), ['action' => 'editdoctor', $sheet->id]);?></td>
+                </tr>
+                <tr>
                     <th><?= __('Créé') ?></th>
                     <td><?= h($sheet->created) ?></td>
                 </tr>

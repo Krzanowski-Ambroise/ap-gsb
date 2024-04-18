@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : jeu. 07 déc. 2023 à 15:46
+-- Généré le : jeu. 18 avr. 2024 à 13:25
 -- Version du serveur : 8.1.0
--- Version de PHP : 8.2.11
+-- Version de PHP : 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,6 +48,25 @@ INSERT INTO `cake_d_c_users_phinxlog` (`version`, `migration_name`, `start_time`
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `doctors`
+--
+
+CREATE TABLE `doctors` (
+  `id` int NOT NULL,
+  `doctor` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `doctor`) VALUES
+(1, 'Pas de docteur'),
+(2, 'Mr.X');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `outpackages`
 --
 
@@ -73,7 +92,8 @@ INSERT INTO `outpackages` (`id`, `date`, `price`, `title`, `body`) VALUES
 (126, '2023-11-24 14:32:45', 55, 'df', ''),
 (127, '2023-11-27 13:27:49', 2, 'petit pain', ''),
 (128, '2023-11-27 13:28:13', 13, 'diner midi hors hotel', ''),
-(129, '2023-12-05 09:19:55', 1234, 'ze', 'zedz');
+(129, '2023-12-05 09:19:55', 1234, 'ze', 'zedz'),
+(130, '2024-03-14 16:51:38', 322, 'fvdfv', 'vdvfdv');
 
 -- --------------------------------------------------------
 
@@ -95,7 +115,8 @@ CREATE TABLE `packages` (
 INSERT INTO `packages` (`id`, `price`, `title`, `body`) VALUES
 (1, 50, 'Hotel', 'Ressourcez-vous dans le luxe absolu avec notre carte \'Hôtel\'. Des escapades de rêve, des nuits inoubliables. Découvrez le confort et le charme à chaque séjour.'),
 (2, 20, 'Taxi', 'Prenez le volant de l\'excitation avec Taxi! Des trajets sans tracas, des aventures urbaines en toute simplicité. Faites de chaque course une expérience mémorable.'),
-(3, 500, 'Location Clement escort', 'Explorez le monde avec Clément en tant qu\'escort privé. Des destinations uniques, une aventure personnalisée. Découvrez le voyage ultime avec Clément Escort.');
+(3, 500, 'Location Clement escort', 'Explorez le monde avec Clément en tant qu\'escort privé. Des destinations uniques, une aventure personnalisée. Découvrez le voyage ultime avec Clément Escort.'),
+(4, 234, 'Thomas Ordinateur', '123');
 
 -- --------------------------------------------------------
 
@@ -105,29 +126,35 @@ INSERT INTO `packages` (`id`, `price`, `title`, `body`) VALUES
 
 CREATE TABLE `sheets` (
   `id` int NOT NULL,
-  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `state_id` int NOT NULL,
   `sheetvalidated` tinyint(1) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime NOT NULL
+  `modified` datetime NOT NULL,
+  `doctor_id` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `sheets`
 --
 
-INSERT INTO `sheets` (`id`, `user_id`, `state_id`, `sheetvalidated`, `created`, `modified`) VALUES
-(8, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-11-14 12:43:51', '2023-11-24 14:58:55'),
-(44, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 1, '2023-11-23 15:40:11', '2023-11-24 14:22:35'),
-(45, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 2, 0, '2023-11-24 13:08:41', '2023-12-07 15:37:42'),
-(47, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 3, 1, '2023-11-24 14:18:00', '2023-11-24 14:58:44'),
-(49, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 4, 1, '2023-11-24 14:20:48', '2023-11-24 14:58:48'),
-(50, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 5, 1, '2023-11-24 15:00:55', '2023-11-24 15:03:47'),
-(51, '92127281-9667-4410-8301-afafbc406394', 1, 0, '2023-11-27 13:27:19', '2023-11-27 13:27:19'),
-(52, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-05 08:07:49', '2023-12-05 08:07:49'),
-(54, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 2, 0, '2023-12-05 09:19:35', '2023-12-05 09:20:56'),
-(57, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-07 14:40:11', '2023-12-07 14:40:11'),
-(58, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-07 15:03:42', '2023-12-07 15:03:42');
+INSERT INTO `sheets` (`id`, `user_id`, `state_id`, `sheetvalidated`, `created`, `modified`, `doctor_id`) VALUES
+(8, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-11-14 12:43:51', '2023-12-15 07:57:19', 2),
+(44, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 1, '2023-11-23 15:40:11', '2023-11-24 14:22:35', 1),
+(45, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 2, 0, '2023-11-24 13:08:41', '2023-12-07 16:30:30', 1),
+(47, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 3, 1, '2023-11-24 14:18:00', '2023-11-24 14:58:44', 1),
+(49, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 4, 1, '2023-11-24 14:20:48', '2023-11-24 14:58:48', 1),
+(50, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 5, 1, '2023-11-24 15:00:55', '2023-11-24 15:03:47', 1),
+(52, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-05 08:07:49', '2023-12-05 08:07:49', 1),
+(54, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 2, 0, '2023-12-05 09:19:35', '2024-03-14 16:45:12', 1),
+(57, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-07 14:40:11', '2023-12-07 14:40:11', 1),
+(58, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-07 15:03:42', '2023-12-07 15:03:42', 1),
+(60, '92127281-9667-4410-8301-afafbc406394', 1, 0, '2023-12-07 16:27:33', '2023-12-07 16:27:33', 1),
+(61, '92127281-9667-4410-8301-afafbc406394', 1, 0, '2023-12-07 16:27:34', '2023-12-07 16:27:34', 1),
+(62, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-08 07:28:48', '2023-12-08 07:28:48', 1),
+(63, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2023-12-14 15:31:08', '2023-12-14 15:31:08', 1),
+(64, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2024-01-09 10:20:53', '2024-01-09 10:20:53', 1),
+(65, '83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 1, 0, '2024-04-18 11:59:27', '2024-04-18 11:59:27', 1);
 
 -- --------------------------------------------------------
 
@@ -147,11 +174,10 @@ CREATE TABLE `sheets_outpackages` (
 INSERT INTO `sheets_outpackages` (`outpackage_id`, `sheet_id`) VALUES
 (120, 8),
 (121, 8),
+(130, 8),
 (122, 44),
 (123, 44),
 (126, 47),
-(127, 51),
-(128, 51),
 (129, 54);
 
 -- --------------------------------------------------------
@@ -164,43 +190,61 @@ CREATE TABLE `sheets_packages` (
   `sheet_id` int NOT NULL,
   `package_id` int NOT NULL,
   `quantity` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `sheets_packages`
 --
 
 INSERT INTO `sheets_packages` (`sheet_id`, `package_id`, `quantity`) VALUES
-(8, 1, 16),
+(8, 1, 19),
 (44, 1, 1),
 (47, 1, 3),
 (49, 1, 0),
 (50, 1, 0),
-(51, 1, 2),
 (52, 1, 0),
 (54, 1, 5),
 (57, 1, 0),
 (58, 1, 0),
+(60, 1, 0),
+(61, 1, 0),
+(62, 1, 0),
+(63, 1, 0),
+(64, 1, 0),
+(65, 1, 0),
 (8, 2, 11),
 (44, 2, 1),
 (47, 2, 0),
 (49, 2, 0),
 (50, 2, 0),
-(51, 2, 5),
 (52, 2, 0),
 (54, 2, 0),
 (57, 2, 0),
 (58, 2, 0),
+(60, 2, 0),
+(61, 2, 0),
+(62, 2, 0),
+(63, 2, 0),
+(64, 2, 0),
+(65, 2, 0),
 (8, 3, 110),
 (44, 3, 1),
 (47, 3, 0),
 (49, 3, 0),
 (50, 3, 0),
-(51, 3, 50),
 (52, 3, 0),
 (54, 3, 0),
 (57, 3, 0),
-(58, 3, 0);
+(58, 3, 0),
+(60, 3, 0),
+(61, 3, 0),
+(62, 3, 0),
+(63, 3, 0),
+(64, 3, 0),
+(65, 3, 0),
+(63, 4, 0),
+(64, 4, 0),
+(65, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -224,7 +268,7 @@ CREATE TABLE `social_accounts` (
   `data` text NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -243,8 +287,8 @@ CREATE TABLE `states` (
 
 INSERT INTO `states` (`id`, `state`) VALUES
 (1, 'Créé'),
-(2, 'Clôturé'),
-(3, 'Mise en paiement'),
+(2, 'Fermé'),
+(3, 'Paiement'),
 (4, 'Remboursé'),
 (5, 'Fini');
 
@@ -259,6 +303,7 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `api_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '123',
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
@@ -275,16 +320,16 @@ CREATE TABLE `users` (
   `modified` datetime NOT NULL,
   `additional_data` text,
   `last_login` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `token`, `token_expires`, `api_token`, `activation_date`, `secret`, `secret_verified`, `tos_date`, `active`, `is_superuser`, `role`, `created`, `modified`, `additional_data`, `last_login`) VALUES
-('6ce815a0-ef68-4a2c-8d95-833792f13b94', 'comptable', 'comptable@test.test', '$2y$10$XdyWGiRMVtXoCbi2Z.ae4..NN0QOTvXs2WIk2D2rYBqqA8ZFnWemO', '', '', 'f6a2be9b3c7c993139c15ef6161a7fc8', '2023-11-24 08:20:41', '', NULL, NULL, NULL, '2023-11-24 07:20:41', 1, 0, 'comptable', '2023-11-24 07:20:41', '2023-11-24 07:21:24', NULL, NULL),
-('83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 'superadmin', 'superadmin@example.com', '$2y$10$zsU7SNm5sZMgClAM.Is4euIim.7VcwpL.SjOHdAhaGyQtrCEXnqfa', 'Ambroise', 'KRZANOWSKI', '', NULL, '', NULL, NULL, NULL, NULL, 1, 1, 'superuser', '2023-11-14 10:19:26', '2023-11-21 10:18:19', NULL, '2023-12-07 14:31:19'),
-('92127281-9667-4410-8301-afafbc406394', 'client', 'client@test.test', '$2y$10$n6vE1JWFIIoc0PGLk/dOMuwQ2SQPgsieSC91BMKbQBP/CAdyKsYAq', '', '', '761d0a44ee252588b60674f444f6d5ce', '2023-11-24 08:20:57', '', NULL, NULL, NULL, '2023-11-24 07:20:57', 1, 0, 'user', '2023-11-24 07:20:57', '2023-11-24 07:21:28', NULL, '2023-11-27 13:27:14');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `api_password`, `first_name`, `last_name`, `token`, `token_expires`, `api_token`, `activation_date`, `secret`, `secret_verified`, `tos_date`, `active`, `is_superuser`, `role`, `created`, `modified`, `additional_data`, `last_login`) VALUES
+('6ce815a0-ef68-4a2c-8d95-833792f13b94', 'comptable', 'comptable@test.test', '$2y$10$XdyWGiRMVtXoCbi2Z.ae4..NN0QOTvXs2WIk2D2rYBqqA8ZFnWemO', '123', '', '', 'f6a2be9b3c7c993139c15ef6161a7fc8', '2023-11-24 08:20:41', '', NULL, NULL, NULL, '2023-11-24 07:20:41', 1, 0, 'comptable', '2023-11-24 07:20:41', '2024-01-12 08:14:20', NULL, '2024-04-18 13:15:01'),
+('83ccb8fd-b212-4f0c-8067-2d238eb9c0b3', 'superadmin', 'superadmin@example.com', '$2y$10$zsU7SNm5sZMgClAM.Is4euIim.7VcwpL.SjOHdAhaGyQtrCEXnqfa', '123', 'Ambroise', 'KRZANOWSKI', '', NULL, 'a9c26ca69c071286fc540c37154751cdca90f894cbe0f2f1d5277b649aba712f', NULL, NULL, NULL, NULL, 1, 1, 'superuser', '2023-11-14 10:19:26', '2024-04-16 21:29:31', NULL, '2024-04-18 13:14:18'),
+('92127281-9667-4410-8301-afafbc406394', 'client', 'client@test.test', '$2y$10$n6vE1JWFIIoc0PGLk/dOMuwQ2SQPgsieSC91BMKbQBP/CAdyKsYAq', '123', '', '', '761d0a44ee252588b60674f444f6d5ce', '2023-11-24 08:20:57', '9997027f809789ae817a0bd6a93a4c4cb65800c21b055503568695651bd40f71', NULL, NULL, NULL, '2023-11-24 07:20:57', 1, 0, 'user', '2023-11-24 07:20:57', '2024-01-12 10:22:53', NULL, '2024-04-18 13:15:21');
 
 --
 -- Index pour les tables déchargées
@@ -295,6 +340,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `first_name`, `last_
 --
 ALTER TABLE `cake_d_c_users_phinxlog`
   ADD PRIMARY KEY (`version`);
+
+--
+-- Index pour la table `doctors`
+--
+ALTER TABLE `doctors`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `outpackages`
@@ -314,7 +365,8 @@ ALTER TABLE `packages`
 ALTER TABLE `sheets`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id --> id - FK` (`user_id`),
-  ADD KEY `etat_id --> id - FK` (`state_id`);
+  ADD KEY `etat_id --> id - FK` (`state_id`),
+  ADD KEY `doctor_id --> id - FK` (`doctor_id`);
 
 --
 -- Index pour la table `sheets_outpackages`
@@ -356,22 +408,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT pour la table `doctors`
+--
+ALTER TABLE `doctors`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT pour la table `outpackages`
 --
 ALTER TABLE `outpackages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT pour la table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `sheets`
 --
 ALTER TABLE `sheets`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT pour la table `states`
@@ -387,6 +445,7 @@ ALTER TABLE `states`
 -- Contraintes pour la table `sheets`
 --
 ALTER TABLE `sheets`
+  ADD CONSTRAINT `doctor_id --> id - FK` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `etat_id --> id - FK` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `sheets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 

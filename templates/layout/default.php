@@ -58,13 +58,14 @@ $roleuser_name = $identity["role"];
                     echo $this->Html->Link('Mes fiches', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
                     echo $this->Html->Link('Fiches comptable', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'complist']);
                     echo $this->Html->Link('Admin panel', ['plugin' => NULL, 'controller' => 'Pages', 'action' => 'adminpanel']);
+                    echo $this->Html->Link('Fiche docteur', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'listdoctor']);
                     echo $this->Html->Link('Mon compte', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'profile']);
                     echo $this->Html->Link('Deconnexion' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);
                 }elseif($roleuser == false){
                     if($roleuser_name == "comptable"){
                         echo $this->Html->Link('Fiches comptable', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'complist']);
                     }else{
-                        echo $this->Html->Link('Mon compte', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
+                        echo $this->Html->Link('Mes fiches', ['plugin' => NULL, 'controller' => 'Sheets', 'action' => 'list']);
                     }
                     echo $this->Html->Link('Mon compte', ['plugin' => 'CakeDC/Users','controller' => 'Users', 'action' => 'profile']);
                     echo $this->Html->Link('Deconnexion' , ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['onclick' => "return confirm('Etes-vous sûr de vouloir vous déconnecter ?')"]);

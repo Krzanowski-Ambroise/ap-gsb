@@ -37,7 +37,7 @@ class SheetsController extends AppController
     public function view($id = null)
     {
         $sheet = $this->Sheets->get($id, [
-            'contain' => ['Users', 'States', 'Outpackages', 'Packages'],
+            'contain' => ['Users', 'States','Outpackages', 'Packages'],
         ]);
 
         $this->set(compact('sheet'));
@@ -46,7 +46,7 @@ class SheetsController extends AppController
     public function clientview($id = null)
     {
         $sheet = $this->Sheets->get($id, [
-            'contain' => ['Users', 'States', 'Outpackages', 'Packages'],
+            'contain' => ['Users', 'States', 'Doctors', 'Outpackages', 'Packages'],
         ]);
     
         if ($this->request->is('post')) {
@@ -72,6 +72,27 @@ class SheetsController extends AppController
         }
     
         $this->set(compact('sheet'));
+    }
+    public function editdoctor($id = null) {
+        $sheet = $this->Sheets->get($id, [
+            'contain' => ['Users', 'Doctors'],
+        ]);
+
+        if ($this->request->is('post')) {
+            $postData = $this->request->getData();
+
+            if (2 == 1) {
+                $this->Flash->success(__('Le docteur a était mis a jour.'));
+                return $this->redirect(['action' => 'clientview', $id]);
+            }
+        }
+    }
+    public function listdoctor() {
+        $this->paginate = [
+            'contain' => ['Users', 'States', 'Doctors'],
+        ];
+
+        $sheets = $this->paginate($this->Sheets->find('doctor_id', ['count' => 'doctor_id'])->groupBy('doctor_id'));
     }
 
     /**
@@ -161,7 +182,7 @@ class SheetsController extends AppController
     public function list()
     {
         $this->paginate = [
-            'contain' => ['Users', 'States'],
+            'contain' => ['Users', 'States', 'Doctors'],
         ];
 
         $identity = $this->getRequest()->getAttribute('identity');
